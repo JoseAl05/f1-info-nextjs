@@ -2,8 +2,8 @@ import Container from '../Container';
 
 const Footer = () => {
     return (
-        <footer className='relative bg-white shadow-lg z-10 w-full mt-32 p-10 border-t-[2px] border-black border-opacity-50'>
-            <div className='flex flex-row items-center justify-around gap-8'>
+        <footer className='relative bg-white shadow-lg z-10 w-full mt-32 border-t-[1px] border-opacity-50'>
+            <div className='flex flex-row items-center justify-around gap-8 p-10'>
                 <div className='flex flex-col items-start gap-2'>
                     <p className='text-black font-light w-[40vw] text-lg'>
                         Utilizamos datos precisos y actualizados de la API Ergast para ofrecerte información detallada sobre la Fórmula 1.
@@ -14,8 +14,10 @@ const Footer = () => {
                 <div className='flex flex-col items-center gap-2'>
                     <p>Desarrollado por <b>José Pablo Arancibia Linker: Ingeniero Informatico.</b></p>
                     <p>Si tienes alguna pregunta o sugerencia, no dudes en contactarme.</p>
-                    <a className='text-blue-700 font-semibold cursor-pointer transition hover:text-black'>Github</a>
-                    <a className='text-blue-700 font-semibold cursor-pointer transition hover:text-black'>Twitter</a>
+                    <div className='flex flex-row items-center justify-center gap-8'>
+                        <a className='text-blue-700 font-semibold cursor-pointer transition hover:text-black'>Github</a>
+                        <a className='text-blue-700 font-semibold cursor-pointer transition hover:text-black'>Twitter</a>
+                    </div>
                 </div>
             </div>
             <div className='flex flex-row justify-center items-center'>
