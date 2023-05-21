@@ -1,7 +1,9 @@
+import Link from 'next/link';
+
 const Menu = () => {
     return (
         <>
-            <p className='font-semibold text-black text-xl cursor-pointer transition hover:text-[#D72323]'>Circuitos</p>
+            <Link href='/circuits?page=0' className='font-semibold text-black text-xl cursor-pointer transition hover:text-[#D72323]'>Circuitos</Link>
             <p className='font-semibold text-black text-xl cursor-pointer transition hover:text-[#D72323]'>Temporadas</p>
             <p className='font-semibold text-black text-xl cursor-pointer transition hover:text-[#D72323]'>Pilotos</p>
             <p className='font-semibold text-black text-xl cursor-pointer transition hover:text-[#D72323]'>Constructores</p>
