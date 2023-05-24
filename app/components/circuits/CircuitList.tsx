@@ -1,19 +1,13 @@
 'use client'
 
-import useCircuit from '@/app/hooks/useCircuit';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import {
-    FieldValues,
-    SubmitHandler,
-    useForm,
-} from 'react-hook-form'
+import { useState, useCallback } from 'react';
 import Pagination from '../pagination/Pagination';
 import CircuitCard from './CircuitCard';
-import YearSelect from '../inputs/YearSelect';
 import Button from '../buttons/Button';
 import { CircuitResponse } from '@/app/types/CircuitTypes';
 import Input from '../inputs/Input';
+import qs from 'query-string';
 
 interface CircuitListProps {
     circuits?: CircuitResponse[];
@@ -25,23 +19,53 @@ const CircuitList: React.FC<CircuitListProps> = ({ circuits, qCircuits }) => {
     const circuitsPerPage = 10;
     const params = useSearchParams();
     const router = useRouter();
-    const [searchInput, setSearchInput] = useState('');
-    // const [year,setYear] = useState('');
+    const [circuitCountryInput, setCircuitCountryInput] = useState('');
 
-    console.log(qCircuits);
+    const handleClick = useCallback(() => {
+        let currentQuery = {};
 
+        if (params) {
+            currentQuery = qs.parse(params.toString());
+        }
+
+        const updatedQuery: any = {
+            ...currentQuery,
+            country:circuitCountryInput,
+            page: 0
+        }
+
+        const url = qs.stringifyUrl({
+            url: '/circuits',
+            query: updatedQuery
+        }, {
+            skipNull: true
+        })
+
+        setCircuitCountryInput('');
+
+        router.push(url);
+
+    }, [params, router,circuitCountryInput]);
 
     return (
         <>
             <div className='flex flex-col items-center gap-5'>
-                <Input id='searchCircuit' label='Busca un circuito!' type='text' value={searchInput} onChange={(value) => setSearchInput(value.target.value)}/>
+                <div className='flex flex-col items-center'>
+                    <Input
+                        id='searchCircuitByCountry'
+                        label='Pais del circuito'
+                        type='text'
+                        value={circuitCountryInput}
+                        onChange={(value) => {
+                            setCircuitCountryInput(value.target.value);
+                        }}
+                    />
+                    <small className='text-red-400'>* Ingrese los paises en ingles. Por ejemplo: Italy, Spain, USA, etc...</small>
+                </div>
                 <div className='flex flex-row justify-center items-center gap-5'>
                     <Button
                         label='Buscar'
-                        onClick={() => {
-                            router.push(`/circuits?page=0&filter=${searchInput}`);
-                            setSearchInput('');
-                        }}
+                        onClick={handleClick}
                         backgroundColor
                     />
                     <Button
@@ -66,8 +90,9 @@ const CircuitList: React.FC<CircuitListProps> = ({ circuits, qCircuits }) => {
             <Pagination
                 count={qCircuits}
                 dataPerPage={circuitsPerPage}
-                queryPage='?page'
-                queryParams='&filter'
+                queryParams={{
+                    country: circuitCountryInput
+                }}
             />
         </>
     );
