@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import axios from 'axios';
-import { ImageID } from '../types';
+import { ImageID } from '../types/ImageTypes';
 
 interface IUseImage {
   title?: string;
