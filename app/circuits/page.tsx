@@ -7,7 +7,7 @@ const CircuitPage = async({searchParams}:{searchParams: { [key: string]: string 
 
     const circuitsPerPage = 10;
     const currentPage = parseInt(searchParams.page);
-    const filter = searchParams.filter;
+    const filter = searchParams.country;
     const circuits = await getCircuits({circuitsPerPage:circuitsPerPage,currentPage:currentPage,filter:filter});
 
 
