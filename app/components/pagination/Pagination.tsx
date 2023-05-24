@@ -5,38 +5,83 @@ import { useState } from 'react';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import Button from '../buttons/Button';
 import Container from '../Container';
+import qs from 'query-string';
 
 interface PaginationProps {
     count: number;
     dataPerPage: number;
-    queryPage: string;
-    queryParams?:string;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage, queryPage ,queryParams }) => {
+const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage}) => {
 
     const router = useRouter();
     const params = useSearchParams();
     const pathname = usePathname();
-    console.log(queryParams);
 
     let currentPage = parseInt(params.get('page'));
-    let currentFilter = params.get('filter');
 
     const numberOfPages = Math.trunc(count / dataPerPage) * dataPerPage;
 
+    let currentQuery = {};
+
     const onNext = () => {
         currentPage = currentPage + dataPerPage;
-        router.replace(`${pathname}${queryPage}=${currentPage}${queryParams}=${currentFilter}`);
+        if (params) {
+            currentQuery = qs.parse(params.toString());
+        }
+
+        const updatedQuery: any = {
+            ...currentQuery,
+            page: currentPage
+        }
+
+        const url = qs.stringifyUrl({
+            url: '/circuits',
+            query: updatedQuery
+        }, {
+            skipNull: true
+        })
+        router.push(url);
     }
 
     const onBack = () => {
         currentPage = currentPage - dataPerPage;
-        router.push(`${pathname}${queryPage}=${currentPage}${queryParams}=${currentFilter}`);
+
+        if (params) {
+            currentQuery = qs.parse(params.toString());
+        }
+
+        const updatedQuery: any = {
+            ...currentQuery,
+            page: currentPage
+        }
+
+        const url = qs.stringifyUrl({
+            url: '/circuits',
+            query: updatedQuery
+        }, {
+            skipNull: true
+        })
+        router.push(url);
     }
 
     const backToTop = () => {
-        router.push(`${pathname}${queryPage}=0${queryParams}=${currentFilter}`);
+        if (params) {
+            currentQuery = qs.parse(params.toString());
+        }
+
+        const updatedQuery: any = {
+            ...currentQuery,
+            page: 0
+        }
+
+        const url = qs.stringifyUrl({
+            url: '/circuits',
+            query: updatedQuery
+        }, {
+            skipNull: true
+        })
+        router.push(url);
     }
 
     return (
