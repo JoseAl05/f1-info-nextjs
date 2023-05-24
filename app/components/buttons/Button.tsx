@@ -2,7 +2,7 @@
 
 interface ButtonProps {
     label: string;
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick: () => void;
     disabled?: boolean;
     small?:boolean;
     backgroundColor?:boolean;
@@ -31,7 +31,7 @@ const Button:React.FC<ButtonProps> = ({
                 disabled:opacity-70
                 disabled:cursor-not-allowed
                 hover:opacity-90
-                ${small ? 'w-1/2' : 'w-full'}
+                ${small ? 'w-1/2' : ''}
                 ${backgroundColor ? 'bg-[#D72323]' : 'bg-transparent'}
                 ${backgroundColor ? 'font-bold' : 'font-semibold'}
                 ${backgroundColor ? 'text-white' : 'text-black'}
