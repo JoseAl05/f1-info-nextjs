@@ -1,50 +1,71 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+import Button from '../buttons/Button';
+import Container from '../Container';
 
 interface PaginationProps {
     count: number;
-    dataPerPage:number;
+    dataPerPage: number;
+    queryPage: string;
+    queryParams?:string;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ count,dataPerPage }) => {
+const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage, queryPage ,queryParams }) => {
 
     const router = useRouter();
     const params = useSearchParams();
+    const pathname = usePathname();
+    console.log(queryParams);
 
     let currentPage = parseInt(params.get('page'));
+    let currentFilter = params.get('filter');
 
-    const numberOfPages = Math.trunc(count/dataPerPage) * dataPerPage;
+    const numberOfPages = Math.trunc(count / dataPerPage) * dataPerPage;
 
     const onNext = () => {
         currentPage = currentPage + dataPerPage;
-        router.replace(`/circuits/?page=${currentPage}`);
+        router.replace(`${pathname}${queryPage}=${currentPage}${queryParams}=${currentFilter}`);
     }
 
     const onBack = () => {
         currentPage = currentPage - dataPerPage;
-        router.push(`/circuits/?page=${currentPage}`);
+        router.push(`${pathname}${queryPage}=${currentPage}${queryParams}=${currentFilter}`);
+    }
+
+    const backToTop = () => {
+        router.push(`${pathname}${queryPage}=0${queryParams}=${currentFilter}`);
     }
 
     return (
-        <div className='flex flex-row items-center justify-around gap-16 pt-10'>
-            {
-                currentPage !== 0 &&
-                (
-                    <AiOutlineArrowLeft onClick={onBack} size={40} color='#D72323' className='cursor-pointer'/>
-                    // <button onClick={onBack} className='bg-red-500 text-white text-lg font-light p-2 rounded-lg'>Anterior</button>
-                )
-            }
-            {
-                currentPage !== numberOfPages &&
-                (
-                    <AiOutlineArrowRight onClick={onNext} size={40} color='#D72323' className='cursor-pointer' />
-                    // <button onClick={onNext} className='bg-red-500 text-white text-lg font-light p-2'>Siguiente</button>
-                )
-            }
-        </div>
+        <Container>
+            <div className='flex flex-row items-center justify-center gap-8 pt-10'>
+                {
+                    currentPage !== 0 &&
+                    (
+                        <AiOutlineArrowLeft onClick={onBack} size={40} color='#D72323' className='cursor-pointer' />
+                    )
+                }
+                {
+                    count > 10 &&
+                    (
+                        <Button
+                            label='Volver al principio'
+                            onClick={backToTop}
+                            backgroundColor
+                        />
+                    )
+                }
+                {
+                    currentPage !== numberOfPages &&
+                    (
+                        <AiOutlineArrowRight onClick={onNext} size={40} color='#D72323' className='cursor-pointer' />
+                    )
+                }
+            </div>
+        </Container>
     )
 }
 
