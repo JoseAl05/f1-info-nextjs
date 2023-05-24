@@ -3,68 +3,71 @@
 import useCircuit from '@/app/hooks/useCircuit';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import {
+    FieldValues,
+    SubmitHandler,
+    useForm,
+} from 'react-hook-form'
 import Pagination from '../pagination/Pagination';
 import CircuitCard from './CircuitCard';
 import YearSelect from '../inputs/YearSelect';
+import Button from '../buttons/Button';
+import { CircuitResponse } from '@/app/types/CircuitTypes';
+import Input from '../inputs/Input';
 
-const CircuitList = () => {
+interface CircuitListProps {
+    circuits?: CircuitResponse[];
+    qCircuits?: number;
+}
 
+const CircuitList: React.FC<CircuitListProps> = ({ circuits, qCircuits }) => {
 
+    const circuitsPerPage = 10;
     const params = useSearchParams();
+    const router = useRouter();
+    const [searchInput, setSearchInput] = useState('');
+    // const [year,setYear] = useState('');
 
-    const {
-        setValue,
-        watch,
-        formState: {
-            errors,
-        },
-        reset
-    } = useForm<FieldValues>({
-        defaultValues: {
-            year: ''
-        }
-    });
-
-    const yearSelected = watch('year');
-
-
-    const { circuits, qCircuits, error, isLoading } = useCircuit({ page: params.get('page'), year: yearSelected });
-
-
-    if (error) {
-        return (
-            <div>Error</div>
-        )
-    }
-
-    if (isLoading) {
-        return (
-            <div>Loading...</div>
-        )
-    }
+    console.log(qCircuits);
 
 
     return (
         <>
-            <YearSelect
-                value={yearSelected}
-                onChange={(value) => setValue('year', value)}
-            />
-            <div className='pt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8'>
-                {circuits.CircuitTable.Circuits.map((circuit) => {
+            <div className='flex flex-col items-center gap-5'>
+                <Input id='searchCircuit' label='Busca un circuito!' type='text' value={searchInput} onChange={(value) => setSearchInput(value.target.value)}/>
+                <div className='flex flex-row justify-center items-center gap-5'>
+                    <Button
+                        label='Buscar'
+                        onClick={() => {
+                            router.push(`/circuits?page=0&filter=${searchInput}`);
+                            setSearchInput('');
+                        }}
+                        backgroundColor
+                    />
+                    <Button
+                        label='Limpiar filtros'
+                        onClick={() => {
+                            router.push('/circuits?page=0');
+                        }}
+                    />
+                </div>
+            </div>
+            <div className='pt-10 flex flex-col gap-8'>
+                {circuits?.map((circuit) => {
                     return (
                         <CircuitCard
                             key={circuit.circuitId}
                             circuit={circuit}
-                            circuitPerPage={circuits.limit}
+                            circuitPerPage={circuitsPerPage}
                         />
                     )
                 })}
             </div>
             <Pagination
                 count={qCircuits}
-                dataPerPage={parseInt(circuits.limit)}
+                dataPerPage={circuitsPerPage}
+                queryPage='?page'
+                queryParams='&filter'
             />
         </>
     );
