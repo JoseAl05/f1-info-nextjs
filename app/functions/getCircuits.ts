@@ -28,7 +28,6 @@ export default async function getCircuits(params: ICircuitParams) {
     //using a blankspace as a separator
     const finalFilterString = arr?.join(' ');
 
-    //Outptut: I Have Learned Something New Today
 
     let query = {};
 
