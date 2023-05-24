@@ -30,7 +30,7 @@ const Map: React.FC<MapProps> = ({ center }) => {
             center={center as L.LatLngExpression || [51, -0.09]}
             zoom={center ? 14 : 2}
             scrollWheelZoom={false}
-            className='h-[35vh] rounded-lg z-0'
+            className='h-[35vh] w-[35vw] rounded-lg'
         >
             <TileLayer
                 attribution={attribution}
