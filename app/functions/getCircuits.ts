@@ -13,54 +13,62 @@ export default async function getCircuits(params: ICircuitParams) {
 
     const qCircuits = await prisma.circuits.count();
 
-    //split the above string into an array of strings
-    //whenever a blank space is encountered
-
+    //Se separa el string en un arreglo de strings
+    //Cada vez que se encuentre un espacio en blanco
     const arr = filter?.split(' ');
-
-    //loop through each element of the array and capitalize the first letter.
-
+    //Se crea un loop por cada elemento del arreglo y se cambia la primera letra a mayúscula
     for (let i = 0; i < arr?.length; i++) {
       arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
     }
 
-    //Join all the elements of the array back into a string
-    //using a blankspace as a separator
+    //Se añaden todos los elementos del array a un nuevo string
+    //Usando un espacio en blanco para separar cada palabra.
     const finalFilterString = arr?.join(' ');
 
 
     let query = {};
 
+    if(circuitsPerPage){
+      query.take = circuitsPerPage;
+    } else {
+      query.take = 10;
+    }
+
+    if(currentPage){
+      query.skip = currentPage;
+    } else {
+      query.skip = 0;
+    }
+
+    if(filter){
+      query.name = finalFilterString;
+    } else {
+      query.name = '';
+    }
+
     if (filter) {
-      console.log(finalFilterString);
       const qFilteredCircuits = await prisma.circuits.count({
         where: {
           OR: [
             {
-              name: finalFilterString,
+              name: query.name,
             },
             {
-              location: finalFilterString,
-            },
-            {
-              country: finalFilterString,
+              country: query.name,
             },
           ],
         },
       });
       const circuits = await prisma.circuits.findMany({
-        skip: currentPage,
-        take: circuitsPerPage,
+        skip: query.skip,
+        take: query.take,
         where: {
           OR: [
             {
-              name: finalFilterString,
+              name: query.name,
             },
             {
-              location: finalFilterString,
-            },
-            {
-              country: finalFilterString,
+              country: query.name,
             },
           ],
         },
@@ -76,8 +84,8 @@ export default async function getCircuits(params: ICircuitParams) {
     }
 
     const circuits = await prisma.circuits.findMany({
-      skip: currentPage,
-      take: circuitsPerPage,
+      skip: query.skip,
+      take: query.take,
       orderBy: {
         name: 'asc',
       },
