@@ -1,5 +1,7 @@
+import { RaceResponse } from './RaceTypes';
+
 export type CircuitResponse = {
-    circuitId:number;
+    circuitId:string;
     circuitRef:string;
     name:string;
     country:string;
@@ -8,4 +10,5 @@ export type CircuitResponse = {
     lat:number;
     lng:number;
     url:string;
+    races?:RaceResponse[];
 }
