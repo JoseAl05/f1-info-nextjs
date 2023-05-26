@@ -90,9 +90,7 @@ const CircuitList: React.FC<CircuitListProps> = ({ circuits, qCircuits }) => {
             <Pagination
                 count={qCircuits}
                 dataPerPage={circuitsPerPage}
-                queryParams={{
-                    country: circuitCountryInput
-                }}
+                currentPathname='/circuits'
             />
         </>
     );
