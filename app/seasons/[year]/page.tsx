@@ -26,7 +26,7 @@ const SeasonPerYearPage = async ({
     return (
         <Container>
             <div className='flex flex-col items-center py-48'>
-                <h1 className='text-black text-3xl font-bold'>Temporada {year}</h1>
+                <h1 className='text-black text-3xl font-bold'>Carreras disputadas el año {year}</h1>
                 <RacesList
                     races={races.races}
                     qRaces={races.qRaces}
