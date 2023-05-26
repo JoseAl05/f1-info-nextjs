@@ -1,21 +1,26 @@
 import prisma from '@/app/libs/prismadb';
 import { CircuitResponse } from '../types/CircuitTypes';
+import { RaceResponse } from '../types/RaceTypes';
 
 export interface ICircuitParams {
   circuitsPerPage: number;
   currentPage: number;
-  filter?: string;
+  circuitCountry?: string;
 }
 
-export default async function getCircuits(params: ICircuitParams) {
-  try {
-    const { circuitsPerPage, currentPage, filter } = params;
+export interface IRacesByCircuitParams {
+  racesPerPage: number;
+  currentPage: number;
+  circuitId?: string;
+}
 
-    const qCircuits = await prisma.circuits.count();
+export async function getCircuits(params: ICircuitParams) {
+  try {
+    const { circuitsPerPage, currentPage, circuitCountry } = params;
 
     //Se separa el string en un arreglo de strings
     //Cada vez que se encuentre un espacio en blanco
-    const arr = filter?.split(' ');
+    const arr = circuitCountry?.split(' ');
     //Se crea un loop por cada elemento del arreglo y se cambia la primera letra a mayúscula
     for (let i = 0; i < arr?.length; i++) {
       arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
@@ -25,76 +30,67 @@ export default async function getCircuits(params: ICircuitParams) {
     //Usando un espacio en blanco para separar cada palabra.
     const finalFilterString = arr?.join(' ');
 
-
     let query = {};
 
-    if(circuitsPerPage){
-      query.take = circuitsPerPage;
-    } else {
-      query.take = 10;
-    }
-
-    if(currentPage){
-      query.skip = currentPage;
-    } else {
-      query.skip = 0;
-    }
-
-    if(filter){
-      query.name = finalFilterString;
-    } else {
-      query.name = '';
-    }
-
-    if (filter) {
-      const qFilteredCircuits = await prisma.circuits.count({
-        where: {
-          OR: [
-            {
-              name: query.name,
-            },
-            {
-              country: query.name,
-            },
-          ],
+    //Si es que el usuario buscó el circuit por país
+    //Se crea la query para obtener los circuitos filtrados.
+    if (circuitCountry) {
+      query.OR = [
+        {
+          name: circuitCountry,
         },
-      });
-      const circuits = await prisma.circuits.findMany({
-        skip: query.skip,
-        take: query.take,
-        where: {
-          OR: [
-            {
-              name: query.name,
-            },
-            {
-              country: query.name,
-            },
-          ],
+        {
+          country: circuitCountry,
         },
-        orderBy: {
-          name: 'asc',
-        },
-      });
-
-      return {
-        circuits: circuits as CircuitResponse | null,
-        qCircuits: qFilteredCircuits as number | null,
-      };
+      ];
     }
+
+    //Cantidad de circuitos aplicando el filtro.
+    const qCircuits = await prisma.circuits.count({
+      where: query,
+    });
 
     const circuits = await prisma.circuits.findMany({
-      skip: query.skip,
-      take: query.take,
+      skip: currentPage,
+      take: circuitsPerPage,
+      where: query,
       orderBy: {
         name: 'asc',
       },
     });
 
     return {
-      circuits: circuits as CircuitResponse | null,
+      circuits: circuits as CircuitResponse[] | null,
       qCircuits: qCircuits as number | null,
     };
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}
+
+//Funcion para obtener todas las carreras que se han disputado en el circuito seleccionado.
+export async function getRacesByCircuit(params: IRacesByCircuitParams) {
+  try {
+    const { racesPerPage, currentPage, circuitId } = params;
+
+    const racesPerCircuits = await prisma.circuits.findMany({
+      where: {
+        circuitId: parseInt(circuitId),
+      },
+      include: {
+        races: {
+          skip: currentPage,
+          take: racesPerPage,
+        },
+        _count: true,
+      },
+    });
+
+    return {
+      racesPerCircuit: racesPerCircuits[0].races as RaceResponse | null,
+      qRacesPerCircuit: racesPerCircuits[0]._count.races as number | null,
+    };
+
   } catch (error: any) {
     throw new Error(error.message);
   }
