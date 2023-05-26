@@ -10,9 +10,10 @@ import qs from 'query-string';
 interface PaginationProps {
     count: number;
     dataPerPage: number;
+    currentPathname:string;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage}) => {
+const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage,currentPathname}) => {
 
     const router = useRouter();
     const params = useSearchParams();
@@ -20,7 +21,11 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage}) => {
 
     let currentPage = parseInt(params.get('page'));
 
-    const numberOfPages = Math.trunc(count / dataPerPage) * dataPerPage;
+    let numberOfPages = Math.trunc(count / dataPerPage) * dataPerPage;
+
+    if(numberOfPages === dataPerPage){
+        numberOfPages = 0;
+    }
 
     let currentQuery = {};
 
@@ -36,7 +41,7 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage}) => {
         }
 
         const url = qs.stringifyUrl({
-            url: '/circuits',
+            url: currentPathname,
             query: updatedQuery
         }, {
             skipNull: true
@@ -57,7 +62,7 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage}) => {
         }
 
         const url = qs.stringifyUrl({
-            url: '/circuits',
+            url: currentPathname,
             query: updatedQuery
         }, {
             skipNull: true
@@ -76,7 +81,7 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage}) => {
         }
 
         const url = qs.stringifyUrl({
-            url: '/circuits',
+            url: currentPathname,
             query: updatedQuery
         }, {
             skipNull: true
@@ -94,7 +99,7 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage}) => {
                     )
                 }
                 {
-                    count > 10 &&
+                    count > dataPerPage &&
                     (
                         <Button
                             label='Volver al principio'
