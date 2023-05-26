@@ -1,23 +1,25 @@
 'use client'
 
-import { CircuitData } from '@/app/types';
-import axios from 'axios';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import { useMemo } from 'react';
 import { BiWorld } from 'react-icons/bi';
 import { HiLocationMarker } from 'react-icons/hi';
 import Button from '../buttons/Button';
 import { CircuitResponse } from '@/app/types/CircuitTypes';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface CircuitCardProps {
     circuit: CircuitResponse;
     circuitPerPage: number;
-    year:string;
 }
 
-const CircuitCard: React.FC<CircuitCardProps> = ({ circuit, circuitPerPage,year }) => {
+const CircuitCard: React.FC<CircuitCardProps> = ({ circuit, circuitPerPage }) => {
 
+    const router = useRouter();
+    const params = useSearchParams();
+    const pathname = usePathname();
+
+    const country = params.get('country');
 
     const Map = useMemo(() => dynamic(() => import('../map/Map'), {
         ssr: false,
@@ -43,10 +45,11 @@ const CircuitCard: React.FC<CircuitCardProps> = ({ circuit, circuitPerPage,year 
                         <HiLocationMarker size={24} />
                         <span>{circuit.location}</span>
                     </div>
-                    <div className='flex flex-row justify-center items-center gap-8'>
+                    <div className='flex flex-row items-center gap-8'>
                         <a
                             href={circuit.url}
                             className='
+                                relative
                                 p-2
                                 text-lg
                                 font-light
@@ -65,16 +68,11 @@ const CircuitCard: React.FC<CircuitCardProps> = ({ circuit, circuitPerPage,year 
                         >
                             Más Información
                         </a>
-                        {
-                            year && (
-                                <Button
-                                    label='Ver datos'
-                                    onClick={() => {}}
-                                    backgroundColor
-                                    small
-                                />
-                            )
-                        }
+                        <Button
+                            label='Ver datos'
+                            onClick={() => router.push(`/circuits/${circuit.circuitId}?page=0`)}
+                            backgroundColor
+                        />
                     </div>
                 </div>
             </div>
