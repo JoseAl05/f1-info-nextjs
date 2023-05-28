@@ -95,23 +95,32 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage,currentPathn
                 {
                     currentPage !== 0 &&
                     (
-                        <AiOutlineArrowLeft onClick={onBack} size={40} color='#D72323' className='cursor-pointer' />
+                        <div className='flex flex-col items-center group'>
+                            <AiOutlineArrowLeft onClick={onBack} size={40} color='#D72323' className='cursor-pointer transition group-hover:scale-105'/>
+                            <small className='transition group-hover:scale-105'>Atras</small>
+                        </div>
                     )
                 }
                 {
                     count > dataPerPage &&
                     (
-                        <Button
-                            label='Volver al principio'
-                            onClick={backToTop}
-                            backgroundColor
-                        />
+                        <div className='flex flex-col items-center gap-2'>
+                            <Button
+                                label='Volver al principio'
+                                onClick={backToTop}
+                                backgroundColor
+                            />
+                            <small>{numberOfPages} páginas</small>
+                        </div>
                     )
                 }
                 {
                     currentPage !== numberOfPages &&
                     (
-                        <AiOutlineArrowRight onClick={onNext} size={40} color='#D72323' className='cursor-pointer' />
+                        <div className='flex flex-col items-center group'>
+                            <AiOutlineArrowRight onClick={onNext} size={40} color='#D72323' className='cursor-pointer transition group-hover:scale-105' />
+                            <small className='transition group-hover:scale-105'>Siguiente</small>
+                        </div>
                     )
                 }
             </div>
