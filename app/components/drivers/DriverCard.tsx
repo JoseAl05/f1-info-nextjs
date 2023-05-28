@@ -6,6 +6,9 @@ import { AiOutlineFieldNumber } from 'react-icons/ai';
 import { GiRaceCar } from 'react-icons/gi';
 import { CiCalendarDate } from 'react-icons/ci';
 import { FaWikipediaW } from 'react-icons/fa';
+import useImage from '@/app/hooks/useImage';
+import Image from 'next/image';
+import DriverImage from './DriverImage';
 
 interface DriverCardProps {
     driver: DriverResponse;
@@ -13,6 +16,7 @@ interface DriverCardProps {
 }
 
 const DriverCard: React.FC<DriverCardProps> = ({ driver, driversPerPage }) => {
+
     return (
         <>
             <div className='flex flex-col items-start gap-5 border border-black rounded-xl p-5 cursor-pointer transition duration-500 hover:-translate-y-3 hover:bg-[#D72323] group w-full'>
@@ -21,6 +25,9 @@ const DriverCard: React.FC<DriverCardProps> = ({ driver, driversPerPage }) => {
                     <BiWorld size={24} className='group-hover:text-white' />
                     <span className='group-hover:text-white'>{driver.nationality}</span>
                 </div>
+                <DriverImage
+                    driver={driver}
+                />
                 <hr className='w-full border-black' />
                 <div className='flex flex-row gap-2'>
                     <AiOutlineFieldNumber size={24} className='group-hover:text-white' />
@@ -47,13 +54,14 @@ const DriverCard: React.FC<DriverCardProps> = ({ driver, driversPerPage }) => {
                 <div className='flex flex-row gap-2'>
                     <CiCalendarDate size={24} className='group-hover:text-white' />
                     {
-                        driver.code ? (
+                        driver.dob ? (
                             <span className='group-hover:text-white'>{driver.dob?.toLocaleDateString()}</span>
                         ) : (
                             <span className='group-hover:text-white'>No existe información</span>
                         )
                     }
                 </div>
+                <span className='invisible group-hover:visible group-hover:mx-auto group-hover:font-bold group-hover:text-xl group-hover:text-white'>Ver resultados</span>
             </div>
         </>
     );
