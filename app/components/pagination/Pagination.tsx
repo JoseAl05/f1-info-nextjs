@@ -23,7 +23,7 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage,currentPathn
 
     let numberOfPages = Math.trunc(count / dataPerPage) * dataPerPage;
 
-    if(numberOfPages === dataPerPage){
+    if(numberOfPages === dataPerPage && count < 10){
         numberOfPages = 0;
     }
 
@@ -88,6 +88,7 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage,currentPathn
         })
         router.push(url);
     }
+
 
     return (
         <Container>
