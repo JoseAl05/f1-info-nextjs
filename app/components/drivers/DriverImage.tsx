@@ -3,6 +3,7 @@
 import useImage from '@/app/hooks/useImage';
 import { DriverResponse } from '@/app/types/DriverTypes';
 import Image from 'next/image';
+import placeholder from '/public/images/placeholder.png';
 
 interface DriverImageProps {
     driver?:DriverResponse;
@@ -14,15 +15,19 @@ const DriverImage: React.FC<DriverImageProps> = ({ driver}) => {
     const imageId = imageData?.pageids[0];
 
     if (isLoading) {
-        <p>
-            Loading...
-        </p>
+        return(
+            <p>
+                Loading...
+            </p>
+        )
     }
 
     if (error) {
-        <p>
-            Error.
-        </p>
+        return(
+            <p>
+                Error.
+            </p>
+        )
     }
 
 
@@ -30,7 +35,7 @@ const DriverImage: React.FC<DriverImageProps> = ({ driver}) => {
         <div className='w-full relative overflow-hidden rounded-xl grayscale group-hover:grayscale-0'>
             <Image
                 alt={driver?.forename}
-                src={imageData?.pages[imageId].original?.source}
+                src={imageData?.pages[imageId].original ? imageData?.pages[imageId].original?.source : placeholder}
                 width={imageData?.pages[imageId].original ? imageData?.pages[imageId].original.width : 0}
                 height={imageData?.pages[imageId].original ? imageData?.pages[imageId].original.height : 0}
                 className='object-cover h-full w-full'
