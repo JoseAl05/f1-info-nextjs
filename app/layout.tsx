@@ -1,4 +1,4 @@
-import { Inter,Nunito } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import './globals.css'
 import ClientOnly from './components/ClientOnly'
 import Navbar from './components/navbar/Navbar'
