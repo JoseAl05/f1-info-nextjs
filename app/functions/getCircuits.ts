@@ -37,10 +37,10 @@ export async function getCircuits(params: ICircuitParams) {
     if (circuitCountry) {
       query.OR = [
         {
-          name: circuitCountry,
+          name: finalFilterString,
         },
         {
-          country: circuitCountry,
+          country: finalFilterString,
         },
       ];
     }
