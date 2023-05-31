@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { DriverResponse } from '@/app/types/DriverTypes';
 import DriverCard from './DriverCard';
 import Pagination from '../pagination/Pagination';
@@ -11,7 +12,9 @@ interface DriverListProps {
 
 const DriverList: React.FC<DriverListProps> = ({ drivers, qDrivers }) => {
 
-    const driversPerPage = 12;
+    const params = useSearchParams();
+
+    const driversPerPage = params.get('dataPerPage') ? parseInt(params.get('dataPerPage')) : 12;
 
     return (
         <>
