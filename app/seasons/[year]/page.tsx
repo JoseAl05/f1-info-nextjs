@@ -21,7 +21,6 @@ const SeasonPerYearPage = async ({
 
     const races = await getRaces({ currentPage: currentPage, racesPerPage: racesPerPage, year: year });
 
-    console.log(races);
 
     return (
         <Container>
