@@ -6,6 +6,7 @@ import { AiOutlineFieldNumber } from 'react-icons/ai';
 import { GiRaceCar } from 'react-icons/gi';
 import { CiCalendarDate } from 'react-icons/ci';
 import { FaWikipediaW } from 'react-icons/fa';
+import { RxCross1 } from 'react-icons/rx';
 import useImage from '@/app/hooks/useImage';
 import Image from 'next/image';
 import DriverImage from './DriverImage';
@@ -35,7 +36,10 @@ const DriverCard: React.FC<DriverCardProps> = ({ driver, driversPerPage }) => {
                         driver.number ? (
                             <span className='group-hover:text-white'>{driver.number}</span>
                         ) : (
-                            <span className='group-hover:text-white'>No existe información</span>
+                            <div className='flex flex-row items-center gap-8'>
+                                <RxCross1 size={30} className='text-red-500 group-hover:text-white' />
+                                <span className='group-hover:text-white'>No Info</span>
+                            </div>
                         )
                     }
                 </div>
@@ -46,7 +50,10 @@ const DriverCard: React.FC<DriverCardProps> = ({ driver, driversPerPage }) => {
                         driver.code ? (
                             <span className='group-hover:text-white'>{driver.code}</span>
                         ) : (
-                            <span className='group-hover:text-white'>No existe información</span>
+                            <div className='flex flex-row items-center gap-8'>
+                                <RxCross1 size={30} className='text-red-500  group-hover:text-white' />
+                                <span className='group-hover:text-white'>No Info</span>
+                            </div>
                         )
                     }
                 </div>
@@ -57,7 +64,10 @@ const DriverCard: React.FC<DriverCardProps> = ({ driver, driversPerPage }) => {
                         driver.dob ? (
                             <span className='group-hover:text-white'>{driver.dob?.toLocaleDateString()}</span>
                         ) : (
-                            <span className='group-hover:text-white'>No existe información</span>
+                            <div className='flex flex-row items-center gap-8'>
+                                <RxCross1 size={30} className='text-red-500  group-hover:text-white' />
+                                <span className='group-hover:text-white'>No Info</span>
+                            </div>
                         )
                     }
                 </div>
