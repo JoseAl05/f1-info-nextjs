@@ -36,7 +36,7 @@ const Button:React.FC<ButtonProps> = ({
                 ${backgroundColor ? 'font-bold' : 'font-semibold'}
                 ${backgroundColor ? 'text-white' : 'text-black'}
                 ${backgroundColor ? 'hover:border-white' : 'hover:border-black'}
-                ${backgroundColor ? 'hover:bg-[#354d77]' : 'hover:bg-white'}
+                ${backgroundColor ? 'hover:bg-[#354d77]' : 'hover:bg-[#D72323]'}
                 `
             }
         >
