@@ -19,9 +19,6 @@ const AlphabetFilter: React.FC<AlphaberFilterProps> = ({ onClick, selected, labe
                                 rounded-xl
                                 border-2
                                 p-4
-                                flex
-                                flex-col
-                                gap-3
                                 cursor-pointer
                                 transition
                                 hover:border-[#D72323]
@@ -40,9 +37,6 @@ const AlphabetFilter: React.FC<AlphaberFilterProps> = ({ onClick, selected, labe
                                 rounded-xl
                                 border-2
                                 p-4
-                                flex
-                                flex-col
-                                gap-3
                                 cursor-not-allowed
                             '
                     >
