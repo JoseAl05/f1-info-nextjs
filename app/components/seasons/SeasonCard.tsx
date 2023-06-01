@@ -2,6 +2,7 @@
 
 import { SeasonResponse } from '@/app/types/SeasonTypes';
 import { useRouter } from 'next/navigation';
+import SeasonImage from './SeasonImage';
 
 interface SeasonCardProps {
     season: SeasonResponse;
@@ -37,6 +38,9 @@ const SeasonCard: React.FC<SeasonCardProps> = ({ season, seasonPerPage }) => {
                 }}
             >
                     <h1 className='text-xl font-semibold text-black transition group-hover:text-white'>Temporada de {season.year}</h1>
+                    <SeasonImage
+                        seasonYear={season.year}
+                    />
                     <a
                         href={season.url}
                         className='
