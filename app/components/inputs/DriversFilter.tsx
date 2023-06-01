@@ -130,7 +130,7 @@ const DriversFilter = () => {
                         />
                     }
                 />
-                <div className='flex flex-row justify-center items-center gap-2 py-10'>
+                <div className='flex flex-row flex-wrap justify-center items-center gap-2 py-10 sm:flex-nowrap'>
                     {
                         alphabet.map((letter, index) => {
                             return (
@@ -149,7 +149,7 @@ const DriversFilter = () => {
                     <input
                         type="submit"
                         value='Aplicar filtros'
-                        className='text-lg text-black font-light p-3 bg-transparent rounded-xl cursor-pointer transition hover:bg-red-600 hover:text-white'
+                        className='text-lg text-black font-light p-3 bg-transparent border border-black rounded-xl cursor-pointer transition hover:bg-red-600 hover:text-white'
                     />
                     <Button
                         label='Limpiar Filtros'
@@ -168,7 +168,7 @@ const DriversFilter = () => {
                 <input
                     type="submit"
                     value='Buscar'
-                    className='text-lg text-black font-light p-3 bg-transparent rounded-xl cursor-pointer transition hover:bg-red-600 hover:text-white'
+                    className='text-lg text-black font-light p-3 bg-transparent border border-black rounded-xl cursor-pointer transition hover:bg-red-600 hover:text-white'
                 />
             </form>
         </>
