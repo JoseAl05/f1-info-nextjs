@@ -4,31 +4,34 @@ import { SeasonResponse } from '../types/SeasonTypes';
 export interface ISeasonParams {
     seasonsPerPage: number;
     currentPage: number;
+    decade?:number;
 }
 
 
 export default async function getSeasons(params:ISeasonParams){
     try {
-        const { seasonsPerPage, currentPage} = params;
+        const { seasonsPerPage, currentPage,decade} = params;
         let query = {};
+        let formattedDecade = [];
 
-        if(seasonsPerPage){
-            query.take = seasonsPerPage;
-        } else {
-            query.take = 10;
+        for (let i = decade; i < decade + 10; i++) {
+            formattedDecade.push(i);
         }
 
-        if(currentPage){
-            query.skip = currentPage;
-        } else {
-            query.skip = 0;
+        if(decade){
+            query.year = {
+                in:formattedDecade,
+            }
         }
 
-        const qSeasons = await prisma.seasons.count();
+        const qSeasons = await prisma.seasons.count({
+            where:query
+        });
 
         const seasons = await prisma.seasons.findMany({
-            skip: query.skip,
-            take: query.take,
+            skip: currentPage,
+            take: seasonsPerPage,
+            where:query,
             orderBy: {
               year: 'asc',
             },
