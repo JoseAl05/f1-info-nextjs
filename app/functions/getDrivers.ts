@@ -9,9 +9,19 @@ export interface IDriverParams {
   driverSurname?: string | null;
 }
 
+export interface IDriverByIdParams {
+  driverId: number;
+}
+
 export async function getDrivers(params: IDriverParams) {
   try {
-    const { driversPerPage, currentPage, sortByLetter, driverForename , driverSurname} = params;
+    const {
+      driversPerPage,
+      currentPage,
+      sortByLetter,
+      driverForename,
+      driverSurname,
+    } = params;
 
     let query = {};
 
@@ -24,7 +34,7 @@ export async function getDrivers(params: IDriverParams) {
       query.forename = driverForename;
     }
 
-    if(driverSurname){
+    if (driverSurname) {
       query.surname = driverSurname;
     }
 
@@ -43,6 +53,29 @@ export async function getDrivers(params: IDriverParams) {
     return {
       drivers: drivers as DriverResponse[] | null,
       qDrivers: qDrivers as number | null,
+    };
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}
+
+export async function getDriverById(params: IDriverByIdParams) {
+  try {
+    const { driverId } = params;
+
+
+    let query = {};
+
+    if (driverId) {
+      query.driverId = driverId;
+    }
+
+    const driver = await prisma.drivers.findUnique({
+      where: query,
+    });
+
+    return {
+      driver: driver as DriverResponse | null,
     };
   } catch (error: any) {
     throw new Error(error.message);
