@@ -5,17 +5,43 @@ import { AiOutlineFieldNumber } from 'react-icons/ai';
 import { CiCalendarDate } from 'react-icons/ci';
 import { MdOutlineWatchLater } from 'react-icons/md';
 import { GiRaceCar } from 'react-icons/gi';
+import { useRouter } from 'next/navigation';
 
 interface RacesCardProps {
     race: RaceResponse;
     racesPerPage: number;
+    year?: number;
 }
 
-const RacesCard: React.FC<RacesCardProps> = ({ race, racesPerPage }) => {
+const RacesCard: React.FC<RacesCardProps> = ({ race, racesPerPage, year }) => {
+
+    const router = useRouter();
+
+    const formattedRaceName = race.name.split(' ').join('-')
+
+    const yearParam = year ? year : race.year;
 
     return (
         <>
-            <div className='flex flex-col items-start gap-5 border border-black rounded-xl p-5 cursor-pointer transition duration-500 hover:-translate-y-3 hover:bg-[#D72323] group'>
+            <div
+                onClick={() => { router.push(`/race/${yearParam}/${race.raceId}/${formattedRaceName}`)}}
+                className='
+                    flex
+                    flex-col
+                    items-start
+                    gap-5
+                    border
+                    border-black
+                    rounded-xl
+                    p-5
+                    cursor-pointer
+                    transition
+                    duration-500
+                    hover:-translate-y-3
+                    hover:bg-[#D72323]
+                    group
+                '
+            >
                 <h1 className='text-xl font-semibold text-black group-hover:text-white'>{race.name}</h1>
                 <div className='flex flex-row gap-2'>
                     <AiOutlineFieldNumber size={24} className='group-hover:text-white' />
@@ -30,7 +56,7 @@ const RacesCard: React.FC<RacesCardProps> = ({ race, racesPerPage }) => {
                     {
                         race.time ? (
                             <span className='group-hover:text-white'>{race.time?.toTimeString()}</span>
-                        ):(
+                        ) : (
                             <span className='group-hover:text-white'>No existe informacion!</span>
                         )
                     }
