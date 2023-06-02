@@ -1,4 +1,4 @@
-import getRaces from '@/app/functions/getRaces';
+import {getRaces} from '@/app/functions/getRaces';
 import Container from '../../components/Container';
 import RacesList from '@/app/components/races/RacesList';
 import {getRacesByCircuit} from '@/app/functions/getCircuits';
