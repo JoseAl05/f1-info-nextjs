@@ -1,4 +1,6 @@
 import { CircuitResponse } from './CircuitTypes';
+import { QualifyingResponse } from './QualifyingTypes';
+import { ResultsResponse } from './ResultTypes';
 
 export type RaceResponse = {
     raceId:number;
@@ -20,4 +22,6 @@ export type RaceResponse = {
     sprint_date?:Date;
     sprint_time?:Date;
     circuits?:CircuitResponse;
+    qualifying:QualifyingResponse[];
+    results:ResultsResponse[];
 }
