@@ -1,4 +1,4 @@
-import getRaces from '@/app/functions/getRaces';
+import {getRaces} from '@/app/functions/getRaces';
 import Container from '../../components/Container';
 import RacesList from '@/app/components/races/RacesList';
 
@@ -28,6 +28,7 @@ const SeasonPerYearPage = async ({
                 <h1 className='text-black text-3xl font-bold'>Carreras disputadas el año {year}</h1>
                 <RacesList
                     races={races.races}
+                    year={year}
                     qRaces={races.qRaces}
                 />
             </div>
