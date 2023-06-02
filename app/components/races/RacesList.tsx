@@ -8,9 +8,10 @@ import { usePathname } from 'next/navigation';
 interface RacesListProps {
     races?: RaceResponse[];
     qRaces?: number;
+    year?:number;
 }
 
-const RacesList: React.FC<RacesListProps> = ({ races, qRaces }) => {
+const RacesList: React.FC<RacesListProps> = ({ races, qRaces,year }) => {
 
     const racesPerPage = 10;
     const pathname = usePathname();
@@ -25,6 +26,7 @@ const RacesList: React.FC<RacesListProps> = ({ races, qRaces }) => {
                                 key={race.raceId}
                                 race={race}
                                 racesPerPage={racesPerPage}
+                                year={year}
                             />
                         )
                     })
