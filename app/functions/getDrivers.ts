@@ -63,7 +63,6 @@ export async function getDriverById(params: IDriverByIdParams) {
   try {
     const { driverId } = params;
 
-
     let query = {};
 
     if (driverId) {
@@ -72,6 +71,9 @@ export async function getDriverById(params: IDriverByIdParams) {
 
     const driver = await prisma.drivers.findUnique({
       where: query,
+      include: {
+        results: true,
+      },
     });
 
     return {
