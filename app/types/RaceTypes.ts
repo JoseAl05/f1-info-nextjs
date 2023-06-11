@@ -1,4 +1,6 @@
 import { CircuitResponse } from './CircuitTypes';
+import { ConstructorStandingsResponse } from './ConstructorStandingsTypes';
+import { DriverStandingsResponse } from './DriverStandingsTypes';
 import { QualifyingResponse } from './QualifyingTypes';
 import { ResultsResponse } from './ResultTypes';
 
@@ -24,4 +26,6 @@ export type RaceResponse = {
     circuits?:CircuitResponse;
     qualifying:QualifyingResponse[];
     results:ResultsResponse[];
+    constructorStandings:ConstructorStandingsResponse[];
+    driverStandings:DriverStandingsResponse[];
 }
