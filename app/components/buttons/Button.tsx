@@ -22,6 +22,7 @@ const Button:React.FC<ButtonProps> = ({
             className=
             {
                 `
+                text-sm
                 relative
                 p-3
                 border
@@ -31,8 +32,9 @@ const Button:React.FC<ButtonProps> = ({
                 disabled:opacity-70
                 disabled:cursor-not-allowed
                 hover:opacity-90
+                lg:text-xl
                 ${small ? 'w-1/2' : ''}
-                ${backgroundColor ? 'bg-[#D72323]' : 'bg-transparent'}
+                ${backgroundColor ? 'bg-[#D72323]' : 'bg-white'}
                 ${backgroundColor ? 'font-bold' : 'font-semibold'}
                 ${backgroundColor ? 'text-white' : 'text-black'}
                 ${backgroundColor ? 'hover:border-white' : 'hover:border-black'}
