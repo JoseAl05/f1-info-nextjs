@@ -33,8 +33,8 @@ const CircuitCard: React.FC<CircuitCardProps> = ({ circuit, circuitPerPage }) =>
 
     return (
         <>
-            <h1 className='text-xl font-semibold text-black'>{circuit.name}</h1>
-            <div className='flex flex-row justify-between items-center gap-8 w-full'>
+            <h1 className='text-xl font-semibold text-black text-center md:text-start lg:text-start'>{circuit.name}</h1>
+            <div className='flex flex-col md:flex-row lg:flex-row justify-between items-center gap-8 w-full'>
                 <Map
                     center={coordinates}
                 />
