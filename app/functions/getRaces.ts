@@ -63,7 +63,17 @@ export async function getRaceById(params: IRaceByIdParams) {
         where:query,
         include:{
             qualifying:true,
-            results:true
+            results:true,
+            driverStandings:{
+              orderBy:{
+                position:'asc'
+              }
+            },
+            constructorStandings:{
+              orderBy:{
+                position:'asc'
+              }
+            },
         }
     })
 
