@@ -1,3 +1,5 @@
+import { ResultsResponse } from './ResultTypes';
+
 export type DriverResponse = {
     driverId:number;
     driverRef:string;
@@ -8,4 +10,5 @@ export type DriverResponse = {
     dob?:Date;
     nationality?:string;
     url:string;
+    results:ResultsResponse[];
 }
