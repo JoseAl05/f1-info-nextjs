@@ -22,7 +22,7 @@ const RaceResults: React.FC<RaceResultsProps> = async ({ results }) => {
     return (
         <div className='flex flex-col items-center'>
             <h1 className='text-xl font-bold whitespace-nowrap'>{driver.driver?.forename} {driver.driver?.surname}</h1>
-            <p className='text-lg font-semibold'>{constructor.constructor?.name}</p>
+            <p className='text-white text-lg font-semibold border-x border-t bg-[#2d4b80] p-1'>{constructor.constructor?.name}</p>
             <div className='text-lg border-[2px] border-[#2d4b80] rounded-xl h-full whitespace-nowrap'>
                 <div className='flex flex-row justify-start items-center gap-3 p-3'>
                     <p className='font-semibold'>Posicion de salida:</p>
