@@ -57,7 +57,7 @@ const DriversCarousel = () => {
 
     return (
         <Container>
-            <div className="embla overflow-hidden rounded-xl w-[50vw]" ref={emblaRef}>
+            <div className="embla overflow-hidden rounded-xl w-full lg:w-[50vw]" ref={emblaRef}>
                 <div className="embla__container">
                     {drivers.map((driverName,index) => {
                         return(
