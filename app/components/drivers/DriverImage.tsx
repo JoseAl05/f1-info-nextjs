@@ -6,16 +6,19 @@ import Image from 'next/image';
 import placeholder from '/public/images/placeholder.png';
 
 interface DriverImageProps {
-    driver?:DriverResponse;
+    driver?: DriverResponse;
+    grayscale?: boolean;
 }
 
-const DriverImage: React.FC<DriverImageProps> = ({ driver}) => {
+const DriverImage: React.FC<DriverImageProps> = ({ driver, grayscale }) => {
 
-    const { imageData, error, isLoading } = useImage({ title: `${driver.forename} ${driver.surname}` });
+    const { imageData, error, isLoading } = useImage({ title: `${driver?.forename} ${driver?.surname}` });
     const imageId = imageData?.pageids[0];
 
+    console.log(driver);
+
     if (isLoading) {
-        return(
+        return (
             <p>
                 Loading...
             </p>
@@ -23,7 +26,7 @@ const DriverImage: React.FC<DriverImageProps> = ({ driver}) => {
     }
 
     if (error) {
-        return(
+        return (
             <p>
                 Error.
             </p>
@@ -32,7 +35,16 @@ const DriverImage: React.FC<DriverImageProps> = ({ driver}) => {
 
 
     return (
-        <div className='w-full relative overflow-hidden rounded-xl grayscale group-hover:grayscale-0'>
+        <div className=
+            {`
+                w-full
+                relative
+                overflow-hidden
+                rounded-xl
+                ${grayscale ? 'grayscale' : 'grayscale-0'}
+                group-hover:grayscale-0
+            `}
+        >
             <Image
                 alt={driver?.forename}
                 src={imageData?.pages[imageId].original ? imageData?.pages[imageId].original?.source : placeholder}
