@@ -14,7 +14,7 @@ export default function Home() {
       <About />
       <Circuits />
       <Seasons />
-      <div className='flex flex-row items-center justify-around pt-20'>
+      <div className='flex flex-col lg:flex-row items-center justify-around pt-20 gap-8 border-t border-black'>
         <Drivers />
         <DriversCarousel />
       </div>
