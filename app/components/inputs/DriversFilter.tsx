@@ -130,7 +130,8 @@ const DriversFilter = () => {
                         />
                     }
                 />
-                <div className='flex flex-row flex-wrap justify-center items-center gap-2 py-10 sm:flex-nowrap'>
+                {/* <div className='flex flex-row flex-wrap justify-center items-center gap-2 py-10 sm:flex-nowrap'> */}
+                <div className='grid grid-cols-6 py-10 gap-2 lg:gap-5'>
                     {
                         alphabet.map((letter, index) => {
                             return (
@@ -157,12 +158,12 @@ const DriversFilter = () => {
                     />
                 </div>
             </form>
-            <form onSubmit={searchForm.handleSubmit(onSearchSubmit)} className='relative flex flex-col items-end gap-5'>
+            <form onSubmit={searchForm.handleSubmit(onSearchSubmit)} className='relative flex flex-col items-center lg:items-end gap-5'>
                 <input
                     type="text"
                     {...searchForm.register('driverName')}
                     placeholder='Busca un piloto, ej: Fernando Alonso'
-                    className='w-[25vw] text-xl p-2 border border-neutral-400 rounded-xl'
+                    className='w-full text-base p-2 border border-neutral-400 rounded-xl md:text-lg lg:text-xl md:w-[45vw] lg:w-[25vw]'
                     disabled={params.get('sortByLetter') !== null}
                 />
                 <input
