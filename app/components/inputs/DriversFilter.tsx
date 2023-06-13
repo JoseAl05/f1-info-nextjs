@@ -114,6 +114,7 @@ const DriversFilter = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
+                <h1 className='pb-5 text-sm text-neutral-500 font-semibold tracking-tight leading-none'>Seleccione la cantidad de pilotos que desea ver por página y haga click en aplicar filtros.</h1>
                 <Controller
                     name="dataPerPage"
                     control={control}
@@ -130,7 +131,7 @@ const DriversFilter = () => {
                         />
                     }
                 />
-                {/* <div className='flex flex-row flex-wrap justify-center items-center gap-2 py-10 sm:flex-nowrap'> */}
+                <h1 className='pt-10 text-sm text-neutral-500 font-semibold tracking-tight leading-none'>Seleccione una letra y haga click en aplicar filtros.</h1>
                 <div className='grid grid-cols-6 py-10 gap-2 lg:gap-5'>
                     {
                         alphabet.map((letter, index) => {

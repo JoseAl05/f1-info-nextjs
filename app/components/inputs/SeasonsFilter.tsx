@@ -13,10 +13,10 @@ type Inputs = {
 };
 
 interface SeasonFilterProps {
-    seasons?:SeasonResponse[];
+    seasons?: SeasonResponse[];
 }
 
-const SeasonsFilter:React.FC<SeasonFilterProps> = ({seasons}) => {
+const SeasonsFilter: React.FC<SeasonFilterProps> = ({ seasons }) => {
 
     let currentQuery = {};
 
@@ -29,7 +29,7 @@ const SeasonsFilter:React.FC<SeasonFilterProps> = ({seasons}) => {
     for (let year = 1950; year <= 2020; year += 10) {
         const decade = Math.floor(year / 10) * 10;
         const label = `Década del ${decade}`;
-        seasonsDecadesOptions.push({ value: year, label:label });
+        seasonsDecadesOptions.push({ value: year, label: label });
     }
 
     const entriesOptions = [
@@ -42,7 +42,7 @@ const SeasonsFilter:React.FC<SeasonFilterProps> = ({seasons}) => {
     const { control, handleSubmit, reset, watch, setValue } = useForm({
         defaultValues: {
             dataPerPage: 12,
-            decade:null,
+            decade: null,
         }
     });
 
@@ -55,14 +55,14 @@ const SeasonsFilter:React.FC<SeasonFilterProps> = ({seasons}) => {
             currentQuery.dataPerPage = qs.parse(seasonsPerPage.toString());
         }
 
-        if(decade){
+        if (decade) {
             currentQuery.decade = qs.parse(decade.toString());
         }
 
         const updatedQuery: any = {
             ...currentQuery,
             dataPerPage: seasonsPerPage,
-            decade:decade,
+            decade: decade,
             page: 0,
         }
 
@@ -86,29 +86,36 @@ const SeasonsFilter:React.FC<SeasonFilterProps> = ({seasons}) => {
     return (
         <>
             <form className='' onSubmit={handleSubmit(onSubmit)}>
+
                 <div className='flex flex-row items-center gap-8'>
-                    <Controller
-                        name="dataPerPage"
-                        control={control}
-                        render={({ field }) =>
-                            <Select
-                                className='max-w-lg w-[10vw]'
-                                {...field}
-                                options={entriesOptions}
-                            />
-                        }
-                    />
-                    <Controller
-                        name="decade"
-                        control={control}
-                        render={({ field }) =>
-                            <Select
-                                className='max-w-lg w-[10vw]'
-                                {...field}
-                                options={seasonsDecadesOptions}
-                            />
-                        }
-                    />
+                    <div className='flex flex-col'>
+                        <Controller
+                            name="dataPerPage"
+                            control={control}
+                            render={({ field }) =>
+                                <Select
+                                    className='max-w-lg w-[20vw]'
+                                    {...field}
+                                    options={entriesOptions}
+                                />
+                            }
+                        />
+                        <h1 className='pt-5 text-sm text-neutral-500 font-semibold tracking-tight leading-none'>Seleccione la cantidad de pilotos que desea ver por página y haga click en aplicar filtros.</h1>
+                    </div>
+                    <div className='flex flex-col'>
+                        <Controller
+                            name="decade"
+                            control={control}
+                            render={({ field }) =>
+                                <Select
+                                    className='max-w-lg w-[20vw]'
+                                    {...field}
+                                    options={seasonsDecadesOptions}
+                                />
+                            }
+                        />
+                        <h1 className='pt-5 text-sm text-neutral-500 font-semibold tracking-tight leading-none'>Seleccione la decada y haga click en aplicar filtros.</h1>
+                    </div>
                 </div>
                 <div className='flex flex-row items-center gap-5 py-10'>
                     <input
