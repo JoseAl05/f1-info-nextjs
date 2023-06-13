@@ -23,6 +23,7 @@ const DriversDrivenForConstructor: React.FC<DriversDrivenForConstructorProps> = 
                             <Link
                                 href={`/drivers/${driver.driverId}/${driver.forename}-${driver.surname}`}
                                 className='text-xl text-[#354d77] font-semibold transition hover:scale-110 hover:underline'
+                                target='_blank'
                             >
                                 {driver.forename} {driver.surname}
                             </Link>
