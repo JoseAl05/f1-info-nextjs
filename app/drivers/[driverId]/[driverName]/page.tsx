@@ -3,30 +3,35 @@ import { getDriverById } from '@/app/functions/getDrivers';
 import DriverImage from '@/app/components/drivers/DriverImage';
 import DriversInfo from '@/app/components/drivers/DriversInfo';
 import EmptyState from '@/app/components/emptyState/EmptyState';
+import ConstructorsDrivenByDriver from '@/app/components/constructors/ConstructorsDrivenByDriver';
+import Pagination from '@/app/components/pagination/Pagination';
+import { getConstructorById } from '@/app/functions/getConstructors';
+import GoBackButton from '@/app/components/buttons/GoBackButton';
 
-interface DriversPageParams {
+interface DriverPageParams {
     driverId?: number;
     driverName?: string;
 }
 
-const DriversPage = async ({ params }: { params: DriversPageParams }) => {
+const DriverPage = async ({params}:{params:DriverPageParams}) => {
 
     const { driverId, driverName } = params;
-
     const formattedDriverId = parseInt(driverId);
 
     const driver = await getDriverById({ driverId: formattedDriverId });
+
+    const constructorsId = driver.driver.results?.map(result => result.constructorId);
 
     return (
         <Container>
             <div className='flex flex-col items-center pt-48 pb-10'>
                 <h1 className='text-black text-3xl font-bold'>{driver.driver?.forename} {driver.driver?.surname}</h1>
-                <div className='flex flex-row justify-between items-center relative py-5 gap-8 max-w-2xl'>
+                <div className='relative flex flex-row justify-between items-center py-5 gap-8 max-w-lg md:max-w-xl lg:max-w-2xl'>
                     <DriverImage
                         driver={driver.driver}
                         grayscale={false}
                     />
-                    <div className='flex flex-col items-center border border-black rounded-lg p-2 w-full'>
+                    <div className='flex flex-col items-center w-full'>
                         <div className='flex flex-row justify-center items-center gap-5'>
                             <h1 className='text-sm lg:text-xl font-semibold'>
                                 Nacionalidad:
@@ -85,9 +90,20 @@ const DriversPage = async ({ params }: { params: DriversPageParams }) => {
                         driver={driver}
                     />
                 </div>
+                <h1 className='text-black text-3xl font-bold pt-10'>Detalle de la carrera de {driver.driver?.forename} {driver.driver?.surname}</h1>
+                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8 pt-10'>
+                    <ConstructorsDrivenByDriver
+                        constructorsId={constructorsId}
+                        driverId={formattedDriverId}
+                    />
+                </div>
+                <GoBackButton
+                    pathname='/drivers'
+                    label='Lista de Pilotos'
+                />
             </div>
         </Container>
     );
 }
 
-export default DriversPage;
+export default DriverPage;
