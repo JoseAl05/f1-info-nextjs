@@ -17,20 +17,20 @@ const SeasonCard: React.FC<SeasonCardProps> = ({ season, seasonPerPage }) => {
         <div className='
                 flex
                 flex-col
-                justify-between
-                items-center
-                gap-8
-                w-full
+                items-start
+                gap-5
                 border
                 border-black
                 rounded-xl
-                p-10
+                p-5
                 cursor-pointer
                 transition
-                hover:scale-110
+                duration-500
+                hover:-translate-y-3
                 hover:bg-[#D72323]
                 group
-                '
+                w-full
+            '
             onClick={(e) => {
                 router.push(`/seasons/${season.year}?page=0`)
                 e.preventDefault();
@@ -40,6 +40,7 @@ const SeasonCard: React.FC<SeasonCardProps> = ({ season, seasonPerPage }) => {
             <SeasonImage
                 seasonYear={season.year}
             />
+            <span className='invisible group-hover:visible group-hover:mx-auto group-hover:font-bold group-hover:text-xl group-hover:text-white'>Ver más</span>
         </div>
     );
 }
