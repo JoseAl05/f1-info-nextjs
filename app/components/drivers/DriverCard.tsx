@@ -86,7 +86,7 @@ const DriverCard: React.FC<DriverCardProps> = ({ driver, driversPerPage }) => {
                         )
                     }
                 </div>
-                <span className='invisible group-hover:visible group-hover:mx-auto group-hover:font-bold group-hover:text-xl group-hover:text-white'>Ver resultados</span>
+                <span className='invisible group-hover:visible group-hover:mx-auto group-hover:font-bold group-hover:text-xl group-hover:text-white'>Ver más</span>
             </div>
         </>
     );
