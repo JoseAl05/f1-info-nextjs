@@ -2,6 +2,7 @@ import { Nunito } from 'next/font/google'
 import './globals.css'
 import ClientOnly from './components/ClientOnly'
 import Navbar from './components/navbar/Navbar'
+import Footer from './components/footer/Footer'
 
 export const metadata = {
   title: 'F1 Info',
@@ -26,6 +27,9 @@ export default function RootLayout({
         <div>
           {children}
         </div>
+        <ClientOnly>
+          <Footer/>
+        </ClientOnly>
       </body>
     </html>
   )
