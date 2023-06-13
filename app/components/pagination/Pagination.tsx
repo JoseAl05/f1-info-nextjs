@@ -109,7 +109,6 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage,currentPathn
                             <Button
                                 label='Volver al principio'
                                 onClick={backToTop}
-                                backgroundColor
                             />
                             <small>{numberOfPages} páginas</small>
                         </div>
