@@ -15,8 +15,6 @@ const DriverImage: React.FC<DriverImageProps> = ({ driver, grayscale }) => {
     const { imageData, error, isLoading } = useImage({ title: `${driver?.forename} ${driver?.surname}` });
     const imageId = imageData?.pageids[0];
 
-    console.log(driver);
-
     if (isLoading) {
         return (
             <p>
