@@ -4,6 +4,7 @@ import { RaceResponse } from '@/app/types/RaceTypes';
 import RacesCard from './RacesCard';
 import Pagination from '../pagination/Pagination';
 import { usePathname } from 'next/navigation';
+import GoBackButton from '../buttons/GoBackButton';
 
 interface RacesListProps {
     races?: RaceResponse[];
@@ -37,6 +38,22 @@ const RacesList: React.FC<RacesListProps> = ({ races, qRaces,year }) => {
                 dataPerPage={racesPerPage}
                 currentPathname={pathname}
             />
+            {
+                pathname.startsWith('/circuits') && (
+                    <GoBackButton
+                        label='Circuitos'
+                        pathname='/circuits'
+                    />
+                )
+            }
+            {
+                pathname.startsWith('/seasons') && (
+                    <GoBackButton
+                        label='Temporadas'
+                        pathname='/seasons'
+                    />
+                )
+            }
         </>
     );
 }
