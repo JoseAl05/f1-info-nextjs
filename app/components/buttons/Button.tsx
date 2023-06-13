@@ -12,7 +12,6 @@ const Button:React.FC<ButtonProps> = ({
     label,
     onClick,
     disabled,
-    small,
     backgroundColor,
 }) => {
     return (
@@ -25,6 +24,7 @@ const Button:React.FC<ButtonProps> = ({
                 text-sm
                 relative
                 p-3
+                bg-white
                 border
                 border-black
                 rounded-lg
@@ -32,13 +32,9 @@ const Button:React.FC<ButtonProps> = ({
                 disabled:opacity-70
                 disabled:cursor-not-allowed
                 hover:opacity-90
+                hover:bg-red-600
+                hover:text-white
                 lg:text-xl
-                ${small ? 'w-1/2' : ''}
-                ${backgroundColor ? 'bg-[#D72323]' : 'bg-white'}
-                ${backgroundColor ? 'font-bold' : 'font-semibold'}
-                ${backgroundColor ? 'text-white' : 'text-black'}
-                ${backgroundColor ? 'hover:border-white' : 'hover:border-black'}
-                ${backgroundColor ? 'hover:bg-[#354d77]' : 'hover:bg-[#D72323]'}
                 `
             }
         >
