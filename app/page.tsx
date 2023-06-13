@@ -18,7 +18,6 @@ export default function Home() {
         <Drivers />
         <DriversCarousel />
       </div>
-      <Footer />
     </main>
   )
 }
