@@ -79,11 +79,12 @@ const ConstructorsDrivenByDriver: React.FC<ConstructorsDrivenByDriverProps> = as
                             <Link
                                 href={`/constructors/${constructor.constructorId}/${constructor.name}`}
                                 className='text-3xl text-[#354d77] font-semibold transition hover:scale-110 hover:underline'
+                                target='_blank'
                             >
                                 {constructor.name}
                             </Link>
                             <div className='flex flex-row justify-center items-center gap-3'>
-                                <h2 className='text-xl text-neutral-600'>Carreras disputadas:</h2>
+                                <h2 className='text-xl text-neutral-600 tracking-tight leading-none'>Carreras disputadas:</h2>
                                 {
                                     racesWithConstructors[index] !== 0 ? (
                                         <p className='text-base font-semibold text-green-700'>{racesWithConstructors[index]}</p>
@@ -93,7 +94,7 @@ const ConstructorsDrivenByDriver: React.FC<ConstructorsDrivenByDriverProps> = as
                                 }
                             </div>
                             <div className='flex flex-row justify-center items-center gap-3'>
-                                <h2 className='text-xl text-neutral-600'>Victorias:</h2>
+                                <h2 className='text-xl text-neutral-600 tracking-tight leading-none'>Victorias:</h2>
                                 {
                                     winsWithConstructors[index] !== 0 ? (
                                         <p className='text-base font-semibold text-green-700'>{winsWithConstructors[index]}</p>
@@ -103,7 +104,7 @@ const ConstructorsDrivenByDriver: React.FC<ConstructorsDrivenByDriverProps> = as
                                 }
                             </div>
                             <div className='flex flex-row justify-center items-center gap-3'>
-                                <h2 className='text-xl text-neutral-600'>Podios:</h2>
+                                <h2 className='text-xl text-neutral-600 tracking-tight leading-none'>Podios:</h2>
                                 {
                                     podiumsWithConstructors[index] !== 0 ? (
                                         <p className='text-base font-semibold text-green-700'>{podiumsWithConstructors[index]}</p>
@@ -113,7 +114,7 @@ const ConstructorsDrivenByDriver: React.FC<ConstructorsDrivenByDriverProps> = as
                                 }
                             </div>
                             <div className='flex flex-row justify-center items-center gap-3'>
-                                <h2 className='text-xl text-neutral-600'>Poles:</h2>
+                                <h2 className='text-xl text-neutral-600 tracking-tight leading-none'>Poles:</h2>
                                 {
                                     polesWithConstructors[index] !== 0 ? (
                                         <p className='text-base font-semibold text-green-700'>{polesWithConstructors[index]}</p>
@@ -123,7 +124,7 @@ const ConstructorsDrivenByDriver: React.FC<ConstructorsDrivenByDriverProps> = as
                                 }
                             </div>
                             <div className='flex flex-row justify-center items-center gap-3'>
-                                <h2 className='text-xl text-neutral-600'>Vueltas completadas:</h2>
+                                <h2 className='text-xl text-neutral-600 tracking-tight leading-none'>Vueltas completadas:</h2>
                                 {
                                     totalLapsWithConstructorsArray[index] !== 0 ? (
                                         <p className='text-base font-semibold text-green-700'>{totalLapsWithConstructorsArray[index]}</p>
@@ -133,7 +134,7 @@ const ConstructorsDrivenByDriver: React.FC<ConstructorsDrivenByDriverProps> = as
                                 }
                             </div>
                             <div className='flex flex-row justify-center items-center gap-3'>
-                                <h2 className='text-xl text-neutral-600'>Puntos obtenidos:</h2>
+                                <h2 className='text-xl text-neutral-600 tracking-tight leading-none'>Puntos obtenidos:</h2>
                                 {
                                     totalPointsWithConstructorsArray[index] !== 0 ? (
                                         <p className='text-base font-semibold text-green-700'>{totalPointsWithConstructorsArray[index]}</p>
@@ -143,7 +144,7 @@ const ConstructorsDrivenByDriver: React.FC<ConstructorsDrivenByDriverProps> = as
                                 }
                             </div>
                             <div className='flex flex-row justify-center items-center gap-3'>
-                                <h2 className='text-xl text-neutral-600'>Abandonos:</h2>
+                                <h2 className='text-xl text-neutral-600 tracking-tight leading-none'>Abandonos:</h2>
                                 {
                                     retirementsWithConstructors[index] === 0 ? (
                                         <p className='text-base font-semibold text-green-700'>{retirementsWithConstructors[index]}</p>
@@ -153,7 +154,7 @@ const ConstructorsDrivenByDriver: React.FC<ConstructorsDrivenByDriverProps> = as
                                 }
                             </div>
                             <div className='flex flex-row justify-center items-center gap-3'>
-                                <h2 className='text-xl text-neutral-600'>Vueltas Rápidas:</h2>
+                                <h2 className='text-xl text-neutral-600 tracking-tight leading-none'>Vueltas Rápidas:</h2>
                                 {
                                     fastestLapsWithConstructors[index] !== 0 ? (
                                         <p className='text-base font-semibold text-green-700'>{fastestLapsWithConstructors[index]}</p>
