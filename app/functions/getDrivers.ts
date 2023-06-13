@@ -65,20 +65,34 @@ export async function getDriverById(params: IDriverByIdParams) {
 
     let query = {};
 
-    if (driverId) {
+    if (driverId && !Array.isArray(driverId)) {
       query.driverId = driverId;
+      const driver = await prisma.drivers.findUnique({
+        where: query,
+        include: {
+          results: true,
+        },
+      });
+      return {
+        driver: driver as DriverResponse | null,
+        qResultsByDriver: driver?.results?.length as number | null,
+      };
     }
 
-    const driver = await prisma.drivers.findUnique({
+    query.driverId = {
+      in: driverId,
+    };
+
+    const driver = await prisma.drivers.findMany({
       where: query,
-      include: {
-        results: true,
-      },
     });
 
     return {
-      driver: driver as DriverResponse | null,
+      driver: driver as DriverResponse[] | null,
+      qResultsByDriver: driver?.results?.length as number | null,
     };
+
+
   } catch (error: any) {
     throw new Error(error.message);
   }
