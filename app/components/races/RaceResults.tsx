@@ -2,6 +2,7 @@ import { getConstructorById } from '@/app/functions/getConstructors';
 import { getDriverById } from '@/app/functions/getDrivers';
 import { getStatusById } from '@/app/functions/getStatus';
 import { ResultsResponse } from '@/app/types/ResultTypes';
+import Link from 'next/link';
 import { RxCross1 } from 'react-icons/rx';
 
 interface RaceResultsProps {
@@ -21,31 +22,37 @@ const RaceResults: React.FC<RaceResultsProps> = async ({ results }) => {
 
     return (
         <div className='flex flex-col items-center'>
-            <h1 className='text-xl font-bold whitespace-nowrap'>{driver.driver?.forename} {driver.driver?.surname}</h1>
+            <Link
+                href={`/drivers/${driverId}/${driver.driver?.forename}-${driver.driver?.surname}`}
+                className='text-xl font-bold whitespace-nowrap transition hover:text-blue-800 hover:underline'
+                target='_blank'
+            >
+                {driver.driver?.forename} {driver.driver?.surname}
+            </Link>
             <p className='text-white text-lg font-semibold border-x border-t bg-[#2d4b80] p-1'>{constructor.constructor?.name}</p>
             <div className='text-lg border-[2px] border-[#2d4b80] rounded-xl h-full whitespace-nowrap'>
                 <div className='flex flex-row justify-start items-center gap-3 p-3'>
-                    <p className='font-semibold'>Posicion de salida:</p>
+                    <p className='font-semibold tracking-tight leading-none'>Posicion de salida:</p>
                     <p className='text-green-600 font-bold'>{results?.grid}</p>
                 </div>
                 <hr />
                 <div className='flex flex-row justify-start items-center gap-3 p-3'>
-                    <p className='font-semibold'>Posicion final:</p>
+                    <p className='font-semibold tracking-tight leading-none'>Posicion final:</p>
                     <p className='text-green-600 font-bold'>{results?.positionOrder}</p>
                 </div>
                 <hr />
                 <div className='flex flex-row justify-start items-center gap-3 p-3'>
-                    <p className='font-semibold'>Vuelta rapida:</p>
+                    <p className='font-semibold tracking-tight leading-none'>Vuelta rapida:</p>
                     <p className='text-green-600 font-bold'>{results?.fastestLapTime}</p>
                 </div>
                 <hr />
                 <div className='flex flex-row justify-start items-center gap-3 p-3'>
-                    <p className='font-semibold'>Vueltas completadas:</p>
+                    <p className='font-semibold tracking-tight leading-none'>Vueltas completadas:</p>
                     <p className='text-green-600 font-bold'>{results?.laps}</p>
                 </div>
                 <hr />
                 <div className='flex flex-row justify-start items-center gap-3 p-3'>
-                    <p className='font-semibold'>Gap:</p>
+                    <p className='font-semibold tracking-tight leading-none'>Gap:</p>
                     {
                         results?.time ? (
                             <p className='text-green-600 font-bold'>{results?.time}</p>
@@ -56,7 +63,7 @@ const RaceResults: React.FC<RaceResultsProps> = async ({ results }) => {
                 </div>
                 <hr />
                 <div className='flex flex-row justify-start items-center gap-3 p-3'>
-                    <p className='font-semibold'>Puntos:</p>
+                    <p className='font-semibold tracking-tight leading-none'>Puntos:</p>
                     {
                         results?.points > 0 ? (
                             <p className='text-green-600 font-bold'>{results?.points}</p>
@@ -67,7 +74,7 @@ const RaceResults: React.FC<RaceResultsProps> = async ({ results }) => {
                 </div>
                 <hr />
                 <div className='flex flex-row justify-start items-center gap-3 p-3'>
-                    <p className='font-semibold'>Status:</p>
+                    <p className='font-semibold tracking-tight leading-none'>Status:</p>
                     {
                         status?.status.status === 'Finished' ? (
                             <p className='text-green-600 font-bold'>{status?.status.status}</p>
