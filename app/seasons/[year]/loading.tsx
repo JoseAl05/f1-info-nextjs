@@ -1,6 +1,4 @@
-import LoadingComponent from './components/LoadingComponent';
-
-
+import LoadingComponent from '@/app/components/LoadingComponent';
 
 const LoadingPage = () => {
     return (
