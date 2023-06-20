@@ -14,10 +14,10 @@ const ConstructorStandingsTable: React.FC<ConstructorStandingsTableProps> = asyn
 
     return (
         <tr className='border-b'>
-            <td className='font-semibold px-6 py-4 border-r'>{constructor.team!.name}</td>
-            <td className='px-6 py-4'>{constructorStanding?.positionText}</td>
-            <td className='px-6 py-4'>{constructorStanding.points}</td>
-            <td className='px-6 py-4'>{constructorStanding.wins}</td>
+            <td className='font-semibold md:px-3 lg:px-6 py-4 border-r'>{constructor.team!.name}</td>
+            <td className='text-center md:px-3 lg:px-6 py-4'>{constructorStanding?.positionText}</td>
+            <td className='text-center md:px-3 lg:px-6 py-4'>{constructorStanding.points}</td>
+            <td className='text-center md:px-3 lg:px-6 py-4'>{constructorStanding.wins}</td>
         </tr>
     );
 }

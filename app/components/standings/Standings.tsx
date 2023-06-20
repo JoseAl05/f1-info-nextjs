@@ -19,13 +19,13 @@ const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStand
                 <div className='relative overflow-x-auto'>
                     {
                         constructorStandings ? (
-                            <table className='w-full text-lg text-left'>
-                                <thead className='text-white text-base uppercase bg-[#D72323]'>
+                            <table className='table text-base md:text-lg lg:text-xl text-left'>
+                                <thead className='text-white text-base uppercase  bg-[#D72323]'>
                                     <tr>
-                                        <th scope='col' className='px-6 py-3'>Constructor</th>
-                                        <th scope='col' className='px-6 py-3'>Posicion</th>
-                                        <th scope='col' className='px-6 py-3'>Puntos</th>
-                                        <th scope='col' className='px-6 py-3'>Victorias</th>
+                                        <th scope='col' className='md:px-3 lg:px-6 py-3 border-r border-white'>Constructor</th>
+                                        <th scope='col' className='md:px-3 lg:px-6 py-3 border-r border-white'>Posicion</th>
+                                        <th scope='col' className='md:px-3 lg:px-6 py-3 border-r border-white'>Puntos</th>
+                                        <th scope='col' className='md:px-3 lg:px-6 py-3'>Victorias</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,18 +49,6 @@ const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStand
                             </div>
                         )
                     }
-                    {/* {
-                        constructorStandings ? (
-                            <ConstructorStandingsTable
-                                constructorsStandings={constructorStandings}
-                            />
-                        ) : (
-                            <div className='flex flex-col items-center gap-2 mt-10'>
-                                <BiSad size={50} />
-                                <p>No Data</p>
-                            </div>
-                        )
-                    } */}
                 </div>
             </div>
             <div className='flex flex-col items-center gap-5'>
@@ -68,12 +56,12 @@ const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStand
                 <div className='relative overflow-x-auto'>
                     {
                         driverStandings ? (
-                            <table className='w-full text-lg text-left'>
-                                <thead className='text-white text-base uppercase bg-[#D72323]'>
+                            <table className='table text-base md:text-lg lg:text-xl text-left'>
+                                <thead className='text-white text-base uppercase  bg-[#D72323]'>
                                     <tr>
-                                        <th scope='col' className='px-6 py-3'>Driver</th>
-                                        <th scope='col' className='px-6 py-3'>Posicion</th>
-                                        <th scope='col' className='px-6 py-3'>Puntos</th>
+                                        <th scope='col' className='md:px-3 lg:px-6 py-3 border-r border-white'>Driver</th>
+                                        <th scope='col' className='md:px-3 lg:px-6 py-3 border-r border-white'>Posicion</th>
+                                        <th scope='col' className='md:px-3 lg:px-6 py-3 border-r border-white'>Puntos</th>
                                         <th scope='col' className='px-6 py-3'>Victorias</th>
                                     </tr>
                                 </thead>
@@ -98,18 +86,6 @@ const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStand
                             </div>
                         )
                     }
-                    {/* {
-                        driverStandings ? (
-                            <DriverStandingsTable
-                                driversStandings={driverStandings}
-                            />
-                        ) : (
-                            <div className='flex flex-col items-center gap-2 mt-10'>
-                                <BiSad size={50} />
-                                <p>No Data</p>
-                            </div>
-                        )
-                    } */}
                 </div>
             </div>
         </>

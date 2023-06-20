@@ -9,7 +9,12 @@ const Footer = () => {
                 <div className='flex flex-col items-center'>
                     <p className='text-black text-sm md:text-base lg:text-lg font-light w-full whitespace-normal lg:w-[40vw]'>
                         Utilizamos datos precisos y actualizados de la
-                        <a className='text-blue-700 text-sm md:text-base lg:text-lg font-semibold cursor-pointer transition hover:text-black'>
+                        <a
+                            href='http://ergast.com/mrd/'
+                            className='text-blue-700 text-sm md:text-base lg:text-lg font-semibold cursor-pointer transition hover:text-black'
+                            target='_blank'
+                            rel='noreferrer'
+                        >
                             &nbsp;API Ergast&nbsp;
                         </a>
                         para ofrecerte información detallada sobre la Fórmula 1.
