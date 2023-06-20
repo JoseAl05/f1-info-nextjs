@@ -16,9 +16,12 @@ const AlphabetFilter: React.FC<AlphaberFilterProps> = ({ onClick, selected, labe
                         onClick={() => onClick(label)}
                         className={`
                                 w-full
+                                text-center
                                 rounded-xl
                                 border-2
-                                p-4
+                                p-2
+                                md:p-4
+                                lg:p-4
                                 cursor-pointer
                                 transition
                                 hover:border-[#D72323]

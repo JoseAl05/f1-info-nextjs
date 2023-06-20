@@ -19,8 +19,8 @@ const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStand
                 <div className='relative overflow-x-auto'>
                     {
                         constructorStandings ? (
-                            <table className='table text-base md:text-lg lg:text-xl text-left'>
-                                <thead className='text-white text-base uppercase  bg-[#D72323]'>
+                            <table className='table text-xs text-center md:text-lg lg:text-xl lg:text-left'>
+                                <thead className='text-white uppercase bg-[#D72323]'>
                                     <tr>
                                         <th scope='col' className='md:px-3 lg:px-6 py-3 border-r border-white'>Constructor</th>
                                         <th scope='col' className='md:px-3 lg:px-6 py-3 border-r border-white'>Posicion</th>
@@ -56,8 +56,8 @@ const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStand
                 <div className='relative overflow-x-auto'>
                     {
                         driverStandings ? (
-                            <table className='table text-base md:text-lg lg:text-xl text-left'>
-                                <thead className='text-white text-base uppercase  bg-[#D72323]'>
+                            <table className='table text-xs text-center md:text-lg lg:text-xl lg:text-left'>
+                                <thead className='text-white uppercase  bg-[#D72323]'>
                                     <tr>
                                         <th scope='col' className='md:px-3 lg:px-6 py-3 border-r border-white'>Driver</th>
                                         <th scope='col' className='md:px-3 lg:px-6 py-3 border-r border-white'>Posicion</th>

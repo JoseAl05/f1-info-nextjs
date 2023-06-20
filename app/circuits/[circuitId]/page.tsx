@@ -22,7 +22,7 @@ const RacesPerCircuitPage = async({
 
     return (
         <Container>
-            <div className='flex flex-col items-center py-48'>
+            <div className='flex flex-col items-center pt-56 md:pt-48 lg:pt-48'>
                 <h1 className='text-black text-3xl font-bold'>Carreras Disputadas</h1>
                 <RacesList
                     races={races.racesPerCircuit}

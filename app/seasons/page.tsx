@@ -13,7 +13,7 @@ const SeasonPage = async ({ searchParams }: { searchParams: { [key: string]: str
 
     return (
         <Container>
-            <div className='flex flex-col items-stretch py-48 gap-5'>
+            <div className='flex flex-col items-stretch pt-56 md:pt-48 lg:pt-48 gap-5'>
                 <h1 className='text-black text-3xl text-center font-bold'>Temporadas</h1>
                 <SeasonsFilter
                     seasons={seasons.seasons}

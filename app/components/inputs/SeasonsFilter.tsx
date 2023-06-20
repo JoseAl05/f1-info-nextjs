@@ -118,14 +118,14 @@ const SeasonsFilter: React.FC<SeasonFilterProps> = ({ seasons }) => {
         <>
             <form className='' onSubmit={handleSubmit(onSubmit)}>
 
-                <div className='flex flex-row items-center gap-8'>
+                <div className='flex flex-col md:flex-row lg:flex-row items-center gap-8 pt-10'>
                     <div className='flex flex-col'>
                         <Controller
                             name="dataPerPage"
                             control={control}
                             render={({ field }) =>
                                 <Select
-                                    className='max-w-lg w-[20vw]'
+                                    className='max-w-sm lg:max-w-lg lg:w-[20vw]'
                                     {...field}
                                     //@ts-ignore
                                     options={entriesOptions}
@@ -140,10 +140,11 @@ const SeasonsFilter: React.FC<SeasonFilterProps> = ({ seasons }) => {
                             control={control}
                             render={({ field }) =>
                                 <Select
-                                    className='max-w-lg w-[20vw]'
+                                    className='max-w-sm lg:max-w-lg lg:w-[20vw]'
                                     {...field}
                                     //@ts-ignore
                                     options={seasonsDecadesOptions}
+                                    blurInputOnSelect
                                 />
                             }
                         />
@@ -154,7 +155,7 @@ const SeasonsFilter: React.FC<SeasonFilterProps> = ({ seasons }) => {
                     <input
                         type="submit"
                         value='Aplicar filtros'
-                        className='text-lg text-black font-light p-3 bg-transparent border border-black rounded-xl cursor-pointer transition hover:bg-red-600 hover:text-white'
+                        className='text-base text-black font-light p-3 bg-transparent border border-black rounded-xl cursor-pointer transition md:text-lg lg:text-xl hover:bg-red-600 hover:text-white'
                     />
                     <Button
                         label='Limpiar Filtros'

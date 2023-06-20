@@ -18,9 +18,9 @@ const RacePage = async ({ params }: { params: RacePageParams }) => {
 
     return (
         <Container>
-            <div className='flex flex-col items-center pt-48 pb-10'>
-                <h1 className='text-black text-3xl font-bold'>{name} Año {year}</h1>
-                <h1 className='text-[#345ba0] text-3xl font-bold pt-20'>Resultados Clasificación</h1>
+            <div className='flex flex-col items-center pt-56 md:pt-48 lg:pt-48 pb-10'>
+                <h1 className='text-black text-3xl font-bold text-center'>{name} Año {year}</h1>
+                <h1 className='text-[#345ba0] text-3xl text-center font-bold pt-20'>Resultados Clasificación</h1>
                 {
                     race.race?.qualifying.length !== 0 ? (
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 pt-10'>
@@ -44,7 +44,7 @@ const RacePage = async ({ params }: { params: RacePageParams }) => {
                 }
             </div>
             <div className='flex flex-col items-center pb-10'>
-                <h1 className='text-[#345ba0] text-3xl font-bold pt-20'>Resultados Carrera</h1>
+                <h1 className='text-[#345ba0] text-3xl text-center font-bold pt-20'>Resultados Carrera</h1>
                 {
                     race.race?.results.length !== 0 ? (
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 pt-10'>

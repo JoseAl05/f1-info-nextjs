@@ -21,7 +21,7 @@ const ConstructorPage = async ({ params }: { params: ConstructorPageParams }) =>
 
     return (
         <Container>
-            <div className='flex flex-col items-center pt-48 pb-10 gap-5'>
+            <div className='flex flex-col items-center pt-56 md:pt-48 lg:pt-48 pb-10 gap-5'>
                 <h1 className='text-black text-3xl font-bold'>{constructor.team!.name}</h1>
                 <div className='relative flex flex-row justify-between items-center py-5 gap-8 max-w-lg md:max-w-xl lg:max-w-2xl'>
                     <ConstructorImage
