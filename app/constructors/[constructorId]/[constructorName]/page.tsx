@@ -7,8 +7,8 @@ import EmptyState from '@/app/components/emptyState/EmptyState';
 import { getConstructorById } from '@/app/functions/getConstructors';
 
 interface ConstructorPageParams {
-    constructorId?: number;
-    constructorName?: string;
+    constructorId: string;
+    constructorName: string;
 }
 
 const ConstructorPage = async ({ params }: { params: ConstructorPageParams }) => {
@@ -18,13 +18,14 @@ const ConstructorPage = async ({ params }: { params: ConstructorPageParams }) =>
 
     const constructor = await getConstructorById({ constructorId: formattedConstructorId });
 
+
     return (
         <Container>
             <div className='flex flex-col items-center pt-48 pb-10 gap-5'>
-                <h1 className='text-black text-3xl font-bold'>{constructor.constructor?.name}</h1>
+                <h1 className='text-black text-3xl font-bold'>{constructor.team!.name}</h1>
                 <div className='relative flex flex-row justify-between items-center py-5 gap-8 max-w-lg md:max-w-xl lg:max-w-2xl'>
                     <ConstructorImage
-                        team={constructor.constructor}
+                        team={constructor.team!}
                     />
                     <div className='flex flex-col items-center w-full'>
                         <div className='flex flex-row justify-center items-center gap-5'>
@@ -32,9 +33,9 @@ const ConstructorPage = async ({ params }: { params: ConstructorPageParams }) =>
                                 Nacionalidad:
                             </h1>
                             {
-                                constructor.constructor?.nationality ? (
+                                constructor.team!.nationality ? (
                                     <p className='text-sm lg:text-xl'>
-                                        {constructor.constructor?.nationality}
+                                        {constructor.team!.nationality}
                                     </p>
                                 ) : (
                                     <EmptyState />
@@ -46,9 +47,9 @@ const ConstructorPage = async ({ params }: { params: ConstructorPageParams }) =>
                                 Constructor Code:
                             </h1>
                             {
-                                constructor.constructor?.constructorRef ? (
+                                constructor.team!.constructorRef ? (
                                     <p className='text-sm lg:text-xl'>
-                                        {constructor.constructor?.constructorRef}
+                                        {constructor.team!.constructorRef}
                                     </p>
                                 ) : (
                                     <EmptyState />
@@ -56,7 +57,7 @@ const ConstructorPage = async ({ params }: { params: ConstructorPageParams }) =>
                             }
                         </div>
                         <a
-                            href={constructor.constructor?.url}
+                            href={constructor.team!.url}
                             rel='noreferrer'
                             target='_blank'
                             className='text-sm mx-auto font-semibold text-blue-400 transition hover:text-blue-700 lg:text-xl'
@@ -67,13 +68,15 @@ const ConstructorPage = async ({ params }: { params: ConstructorPageParams }) =>
                 </div>
                 <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4 pt-10'>
                     <ConstructorInfo
-                        constructor={constructor}
+                        team={constructor.team!}
+                        results={constructor.results}
                     />
                 </div>
-                <h1 className='text-black text-3xl font-bold pt-10'>Pilotos que han pilotado en {constructor.constructor?.name}</h1>
+                <h1 className='text-black text-3xl font-bold pt-10'>Pilotos que han pilotado en {constructor.team!.name}</h1>
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8 pt-10'>
                     <DriversDrivenForConstructor
-                        team={constructor.constructor}
+                        team={constructor.team!}
+                        results={constructor.results}
                     />
                 </div>
                 <GoBackButton

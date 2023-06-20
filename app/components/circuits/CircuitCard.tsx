@@ -7,9 +7,10 @@ import { HiLocationMarker } from 'react-icons/hi';
 import Button from '../buttons/Button';
 import { CircuitResponse } from '@/app/types/CircuitTypes';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { circuits } from '@prisma/client';
 
 interface CircuitCardProps {
-    circuit: CircuitResponse;
+    circuit: circuits;
     circuitPerPage: number;
 }
 
@@ -27,8 +28,8 @@ const CircuitCard: React.FC<CircuitCardProps> = ({ circuit, circuitPerPage }) =>
 
 
     const coordinates = [
-        parseFloat(circuit.lat),
-        parseFloat(circuit.lng)
+        circuit.lat || 0,
+        circuit.lng || 0
     ];
 
     return (

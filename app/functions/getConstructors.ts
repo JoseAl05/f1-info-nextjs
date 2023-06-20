@@ -7,14 +7,12 @@ export interface IConstructorParams {
 }
 
 export interface IContructorByIdParams {
-  constructorId: number;
+  constructorId: number | number[];
 }
 
 export interface IConstructorResultsByDriverAndConstructorIdParams {
-  constructorId: number;
+  constructorId: number[];
   driverId: number;
-  constructorsPerPage: number;
-  currentPage: number;
 }
 
 export async function getConstructors(params: IConstructorParams) {
@@ -32,8 +30,8 @@ export async function getConstructors(params: IConstructorParams) {
     });
 
     return {
-      constructors: constructors as ConstructorResponse[] | null,
-      qConstructors: qConstructors as number | null,
+      teams: constructors,
+      qConstructors: qConstructors as number,
     };
   } catch (error: any) {
     throw new Error(error.message);
@@ -44,11 +42,9 @@ export async function getConstructorById(params: IContructorByIdParams) {
   try {
     const { constructorId } = params;
 
-    let query = {};
+    let query:any = {};
 
-    if (constructorId) {
-      query.constructorId = constructorId;
-    }
+    query.constructorId = constructorId;
 
     const constructor = await prisma.constructors.findUnique({
       where: query,
@@ -58,7 +54,8 @@ export async function getConstructorById(params: IContructorByIdParams) {
     });
 
     return {
-      constructor: constructor as ConstructorResponse | null,
+      team: constructor,
+      results:constructor!.results
     };
   } catch (error: any) {
     throw new Error(error.message);
@@ -71,8 +68,8 @@ export async function getConstructorResultsByDriverAndConstructorId(
   try {
     const { constructorId, driverId } = params;
 
-    let query = {};
-    let queryResults = {};
+    let query:any = {};
+    let queryResults:any = {};
 
     if (Array.isArray(constructorId)) {
       query.constructorId = {
@@ -82,27 +79,25 @@ export async function getConstructorResultsByDriverAndConstructorId(
       query.constructorId = constructorId;
     }
 
-    if(driverId && Array.isArray(constructorId)){
+    if (driverId && Array.isArray(constructorId)) {
       queryResults.constructorId = {
-        in:constructorId
+        in: constructorId,
       };
       queryResults.driverId = driverId;
     }
 
     const constructor = await prisma.constructors.findMany({
-      where:query,
+      where: query,
       include: {
         results: {
-          // skip: currentPage,
-          // take: constructorsPerPage,
           where: {
-            AND:[queryResults]
+            AND: [queryResults],
           },
         },
       },
     });
     return {
-      constructor: constructor as ConstructorResponse[] | null,
+      team: constructor,
     };
   } catch (error: any) {
     throw new Error(error.message);

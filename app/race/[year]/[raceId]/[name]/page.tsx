@@ -6,8 +6,8 @@ import { getRaceById } from '@/app/functions/getRaces';
 import { BiSad } from 'react-icons/bi';
 
 interface RacePageParams {
-    year?: number;
-    raceId?: string;
+    year: number | string;
+    raceId: string;
     name?: string;
 }
 
@@ -46,11 +46,12 @@ const RacePage = async ({ params }: { params: RacePageParams }) => {
             <div className='flex flex-col items-center pb-10'>
                 <h1 className='text-[#345ba0] text-3xl font-bold pt-20'>Resultados Carrera</h1>
                 {
-                    race?.race?.results.length !== 0 ? (
+                    race.race?.results.length !== 0 ? (
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 pt-10'>
                             {
                                 race?.race?.results.map((result) => {
                                     return (
+
                                         <RaceResults
                                             key={result.resultId}
                                             results={result}
@@ -69,8 +70,8 @@ const RacePage = async ({ params }: { params: RacePageParams }) => {
             </div>
             <div className='flex flex-row justify-around gap-8 pb-10'>
                 <Standings
-                    constructorStandings={race?.race?.constructorStandings}
-                    driverStandings={race?.race?.driverStandings}
+                    constructorStandings={race.race!.constructorStandings}
+                    driverStandings={race.race!.driverStandings}
                 />
             </div>
         </Container>

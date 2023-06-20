@@ -4,17 +4,17 @@ import { SeasonResponse } from '../types/SeasonTypes';
 export interface ISeasonParams {
     seasonsPerPage: number;
     currentPage: number;
-    decade?:number;
+    decade:number | null;
 }
 
 
 export default async function getSeasons(params:ISeasonParams){
     try {
         const { seasonsPerPage, currentPage,decade} = params;
-        let query = {};
+        let query:any = {};
         let formattedDecade = [];
 
-        for (let i = decade; i < decade + 10; i++) {
+        for (let i = decade; i! < decade! + 10; i!++) {
             formattedDecade.push(i);
         }
 
@@ -38,8 +38,8 @@ export default async function getSeasons(params:ISeasonParams){
         })
 
         return{
-            seasons: seasons as SeasonResponse[] | null,
-            qSeasons: qSeasons as number | null,
+            seasons: seasons,
+            qSeasons: qSeasons as number,
         }
 
 

@@ -4,7 +4,7 @@ import RacesList from '@/app/components/races/RacesList';
 import {getRacesByCircuit} from '@/app/functions/getCircuits';
 
 interface RacesPerCircuitParams {
-    circuitId?: number;
+    circuitId: string;
 }
 
 const RacesPerCircuitPage = async({
@@ -12,13 +12,13 @@ const RacesPerCircuitPage = async({
     searchParams,
 }: {
     params: RacesPerCircuitParams;
-    searchParams?: { [key: string]: string | string[] | undefined };
+    searchParams?: { [key: string]: string | undefined };
 }) => {
 
     const racesPerPage = 10;
-    const currentPage = parseInt(searchParams.page);
+    const currentPage = parseInt(searchParams?.page!);
     const {circuitId} = params;
-    const races = await getRacesByCircuit({racesPerPage:racesPerPage,currentPage:currentPage,circuitId:circuitId});
+    const races = await getRacesByCircuit({racesPerPage:racesPerPage,currentPage:currentPage,circuitId:parseInt(circuitId)});
 
     return (
         <Container>

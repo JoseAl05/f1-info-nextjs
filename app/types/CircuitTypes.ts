@@ -1,3 +1,5 @@
+import { Prisma } from '@prisma/client';
+import { getCircuits } from '../functions/getCircuits';
 import { RaceResponse } from './RaceTypes';
 
 export type CircuitResponse = {
@@ -10,5 +12,6 @@ export type CircuitResponse = {
     lat:number;
     lng:number;
     url:string;
-    races?:RaceResponse[];
+    races:RaceResponse[];
 }
+

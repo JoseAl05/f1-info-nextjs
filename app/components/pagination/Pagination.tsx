@@ -5,25 +5,28 @@ import { useState } from 'react';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import Button from '../buttons/Button';
 import Container from '../Container';
-import qs from 'query-string';
+import qs, { ParsedQuery } from 'query-string';
+
+
 
 interface PaginationProps {
     count: number;
     dataPerPage: number;
-    currentPathname:string;
+    currentPathname: string;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage,currentPathname}) => {
+const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage, currentPathname }) => {
 
     const router = useRouter();
     const params = useSearchParams();
     const pathname = usePathname();
 
+    //@ts-ignore
     let currentPage = parseInt(params.get('page'));
 
     let numberOfPages = Math.trunc(count / dataPerPage) * dataPerPage;
 
-    if(numberOfPages === dataPerPage && count <= 10){
+    if (numberOfPages === dataPerPage && count <= 10) {
         numberOfPages = 0;
     }
 
@@ -97,7 +100,7 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage,currentPathn
                     currentPage !== 0 &&
                     (
                         <div className='flex flex-col items-center group'>
-                            <AiOutlineArrowLeft onClick={onBack} size={40} color='#D72323' className='cursor-pointer transition group-hover:scale-105'/>
+                            <AiOutlineArrowLeft onClick={onBack} size={40} color='#D72323' className='cursor-pointer transition group-hover:scale-105' />
                             <small className='transition group-hover:scale-105'>Atras</small>
                         </div>
                     )

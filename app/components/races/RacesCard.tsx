@@ -6,11 +6,12 @@ import { CiCalendarDate } from 'react-icons/ci';
 import { MdOutlineWatchLater } from 'react-icons/md';
 import { GiRaceCar } from 'react-icons/gi';
 import { useRouter } from 'next/navigation';
+import { races } from '@prisma/client';
 
 interface RacesCardProps {
-    race: RaceResponse;
+    race: races;
     racesPerPage: number;
-    year?: number;
+    year?: string;
 }
 
 const RacesCard: React.FC<RacesCardProps> = ({ race, racesPerPage, year }) => {

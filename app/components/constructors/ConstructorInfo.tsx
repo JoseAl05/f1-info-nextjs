@@ -1,4 +1,5 @@
 import { ConstructorResponse } from '@/app/types/ConstructorTypes';
+import { constructors, results } from '@prisma/client';
 import { AiOutlineTrophy } from 'react-icons/ai';
 import { FaFlagCheckered } from 'react-icons/fa';
 import { GiCycle, GiPodium, GiRaceCar } from 'react-icons/gi';
@@ -6,30 +7,34 @@ import { RxCross1 } from 'react-icons/rx';
 import { TbNumbers, TbSquareNumber1 } from 'react-icons/tb';
 
 interface ConstructorInfoProps {
-    constructor?: ConstructorResponse;
+    team: constructors | null;
+    results:results[];
 }
 
-const ConstructorInfo: React.FC<ConstructorInfoProps> = ({ constructor }) => {
+const ConstructorInfo: React.FC<ConstructorInfoProps> = ({ team,results }) => {
 
     let totalPoints = 0;
     let totalLaps = 0;
+    const constructorRacesHeld = team && results && results?.filter(result => result.raceId).length;
+    const constructorWins = team && results && results?.filter(result => result.positionText === '1').length;
+    const constructorPodiums = team && results && results?.filter(result => result.positionText === '1' || result.positionText === '2' || result.positionText === '3').length;
+    const constructorPoles = team && results && results?.filter(result => result.grid === 1).length;
+    const constructorPoints = team && results && results?.filter(result => result.points !== 0).map(points => points.points);
+    const constructorLaps = team && results && results?.filter(result => result.laps !== 0).map(laps => laps.laps);
+    const constructorRetirements = team && results && results?.filter(result => result.position === null).length;
+    const constructorFastestLaps = team && results && results?.filter(result => result.rank === 1).length;
 
-    const constructorRacesHeld = constructor.constructor?.results.filter(result => result.raceId).length;
-    const constructorWins = constructor.constructor?.results.filter(result => result.positionText === '1').length;
-    const constructorPodiums = constructor.constructor?.results.filter(result => result.positionText === '1' || result.positionText === '2' || result.positionText === '3').length;
-    const constructorPoles = constructor.constructor?.results.filter(result => result.grid === 1).length;
-    const constructorPoints = constructor.constructor?.results.filter(result => result.points !== 0).map(points => points.points);
-    const constructorLaps = constructor.constructor?.results.filter(result => result.laps !== 0).map(laps => laps.laps);
-    const constructorRetirements = constructor.constructor?.results.filter(result => result.position === null).length;
-    const constructorFastestLaps = constructor.constructor?.results.filter(result => result.rank === 1).length;
 
-
-    for (let i = 0; i < constructorPoints.length; i++) {
-        totalPoints = constructorPoints[i] + totalPoints;
+    if(constructorPoints?.length !== undefined){
+        for (let i = 0; i < constructorPoints?.length ; i++) {
+            totalPoints = constructorPoints[i] + totalPoints;
+        }
     }
 
-    for (let i = 0; i < constructorLaps.length; i++) {
-        totalLaps = constructorLaps[i] + totalLaps;
+    if(constructorLaps?.length !== undefined){
+        for (let i = 0; i < constructorLaps?.length ; i++) {
+            totalLaps = constructorLaps[i] + totalLaps;
+        }
     }
 
 

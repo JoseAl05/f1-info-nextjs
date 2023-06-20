@@ -1,23 +1,27 @@
 import { getDriverById } from '@/app/functions/getDrivers';
 import { ConstructorResponse } from '@/app/types/ConstructorTypes';
+import { constructors, results } from '@prisma/client';
 import Link from 'next/link';
 
 interface DriversDrivenForConstructorProps {
-    team?: ConstructorResponse;
+    team: constructors;
+    results: results[];
 }
 
-const DriversDrivenForConstructor: React.FC<DriversDrivenForConstructorProps> = async ({ team }) => {
+//@ts-ignore
+const DriversDrivenForConstructor: React.FC<DriversDrivenForConstructorProps> = async ({ team, results }) => {
 
-    const driversId = team?.results.map(result => result.driverId);
+    const driversId = results && results.map(result => result.driverId);
 
-    const uniquesDriversIds = [...new Set(driversId)];
+    const uniquesDriversIds: number[] = Array.from(new Set(driversId));
+
 
     const drivers = await getDriverById({ driverId: uniquesDriversIds });
 
     return (
         <>
             {
-                drivers.driver.map(driver => {
+                Array.isArray(drivers.driver) && drivers.driver.map(driver => {
                     return (
                         <div key={driver.driverId} className='flex flex-col items-center gap-2'>
                             <Link

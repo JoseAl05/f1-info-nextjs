@@ -5,10 +5,11 @@ import SeasonCard from './SeasonCard';
 import Pagination from '../pagination/Pagination';
 import Button from '../buttons/Button';
 import { SeasonResponse } from '@/app/types/SeasonTypes';
+import { seasons } from '@prisma/client';
 
 interface SeasonListProps {
-    seasons?:SeasonResponse[];
-    qSeasons?:number;
+    seasons:seasons[];
+    qSeasons:number;
 }
 
 const SeasonsList:React.FC<SeasonListProps> = ({seasons,qSeasons}) => {
@@ -21,10 +22,10 @@ const SeasonsList:React.FC<SeasonListProps> = ({seasons,qSeasons}) => {
     return (
         <>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 pt-10'>
-                {seasons?.map((season) => {
+                {seasons.map((season) => {
                     return (
                         <SeasonCard
-                            key={season.season}
+                            key={season.year}
                             season={season}
                             seasonPerPage={seasonsPerPage}
                         />

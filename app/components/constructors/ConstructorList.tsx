@@ -3,10 +3,11 @@
 import Pagination from '../pagination/Pagination';
 import { ConstructorResponse } from '@/app/types/ConstructorTypes';
 import ConstructorCard from './ConstructorCard';
+import { constructors } from '@prisma/client';
 
 interface ConstructorListProps {
-    constructors?: ConstructorResponse[];
-    qConstructors?: number;
+    constructors: constructors[];
+    qConstructors: number;
 }
 
 const ConstructorList: React.FC<ConstructorListProps> = ({ constructors, qConstructors }) => {
@@ -20,7 +21,7 @@ const ConstructorList: React.FC<ConstructorListProps> = ({ constructors, qConstr
                     return (
                         <ConstructorCard
                             key={constructor.constructorId}
-                            constructor={constructor}
+                            team={constructor}
                             constructorsPerPage={constructorsPerPage}
                         />
                     )

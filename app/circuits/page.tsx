@@ -3,11 +3,12 @@ import CircuitList from '../components/circuits/CircuitList';
 import Input from '../components/inputs/Input';
 import { getCircuits } from '../functions/getCircuits';
 
+
 const CircuitPage = async ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
 
     const circuitsPerPage = 10;
-    const currentPage = parseInt(searchParams.page);
-    const circuitCountry = searchParams.country;
+    const currentPage = parseInt(searchParams?.page!);
+    const circuitCountry = searchParams?.country!;
     const circuits = await getCircuits({ circuitsPerPage: circuitsPerPage, currentPage: currentPage, circuitCountry: circuitCountry });
 
 

@@ -29,7 +29,7 @@ import Container from '../Container';
 
 
 const DriversCarousel = () => {
-    const [emblaRef] = useEmblaCarousel({ loop: true, delay: 1000,duration:900,stopOnInteraction:false }, [Autoplay()]);
+    const [emblaRef] = useEmblaCarousel({ loop: true, duration:900 }, [Autoplay()]);
 
     const drivers =[
             verstappen,

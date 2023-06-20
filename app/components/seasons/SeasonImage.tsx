@@ -5,7 +5,7 @@ import Image from 'next/image';
 import placeholder from '/public/images/placeholder.png';
 
 interface SeasonImageProps {
-    seasonYear?:number;
+    seasonYear:number;
 }
 
 const SeasonImage:React.FC<SeasonImageProps> = ({seasonYear}) => {
@@ -40,8 +40,11 @@ const SeasonImage:React.FC<SeasonImageProps> = ({seasonYear}) => {
         <div className='w-full relative overflow-hidden rounded-xl grayscale group-hover:grayscale-0'>
             <Image
                 alt={`Season ${seasonYear}`}
+                //@ts-ignore
                 src={imageData?.pages[imageId].original ? imageData?.pages[imageId].original?.source : placeholder}
+                //@ts-ignore
                 width={imageData?.pages[imageId].original ? imageData?.pages[imageId].original.width : 0}
+                //@ts-ignore
                 height={imageData?.pages[imageId].original ? imageData?.pages[imageId].original.height : 0}
                 className='object-cover h-full w-full'
             />

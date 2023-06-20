@@ -5,32 +5,38 @@ import { GrCycle } from 'react-icons/gr';
 import { RxCross1 } from 'react-icons/rx';
 import { FaFlagCheckered } from 'react-icons/fa';
 import { DriverResponse } from '@/app/types/DriverTypes';
+import { drivers, results } from '@prisma/client';
 
 interface DriversInfoProps {
-    driver?: DriverResponse;
+    driver: drivers;
+    results?:results[]
 }
 
-const DriversInfo: React.FC<DriversInfoProps> = ({ driver }) => {
+const DriversInfo: React.FC<DriversInfoProps> = ({ driver,results }) => {
 
 
     let totalPoints = 0;
     let totalLaps = 0;
 
-    const driverWins = driver.driver?.results?.filter(result => result.positionText === '1').length;
-    const driverPodiums = driver.driver?.results?.filter(result => result.positionText === '1' || result.positionText === '2' || result.positionText === '3').length;
-    const driverPoles = driver.driver?.results?.filter(result => result.grid === 1).length;
-    const driverPoints = driver.driver?.results?.filter(result => result.points !== 0).map(points => points.points);
-    const driverLaps = driver.driver?.results?.filter(result => result.laps !== 0).map(laps => laps.laps);
-    const driverRetirements = driver.driver?.results?.filter(result => result.position === null).length;
-    const driverFastestLaps = driver.driver?.results?.filter(result => result.rank === 1).length;
-    const driverRacesHeld = driver.driver?.results?.filter(result => result.raceId).length;
+    const driverWins = results && results?.filter(result => result.positionText === '1').length;
+    const driverPodiums = results && results?.filter(result => result.positionText === '1' || result.positionText === '2' || result.positionText === '3').length;
+    const driverPoles = results && results?.filter(result => result.grid === 1).length;
+    const driverPoints = results && results?.filter(result => result.points !== 0).map(points => points.points);
+    const driverLaps = results && results?.filter(result => result.laps !== 0).map(laps => laps.laps);
+    const driverRetirements = results && results?.filter(result => result.position === null).length;
+    const driverFastestLaps = results && results?.filter(result => result.rank === 1).length;
+    const driverRacesHeld = results && results?.filter(result => result.raceId).length;
 
-    for (let i = 0; i < driverPoints?.length; i++) {
-        totalPoints = driverPoints[i] + totalPoints;
+    if(driverPoints?.length !== undefined){
+        for (let i = 0; i < driverPoints.length; i++) {
+            totalPoints = driverPoints[i] + totalPoints;
+        }
     }
 
-    for (let i = 0; i < driverLaps?.length; i++) {
-        totalLaps = driverLaps[i] + totalLaps;
+    if(driverLaps?.length !== undefined){
+        for (let i = 0; i < driverLaps.length; i++) {
+            totalLaps = driverLaps[i] + totalLaps;
+        }
     }
 
     return (

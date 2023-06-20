@@ -2,7 +2,7 @@ import Container from '../components/Container';
 import ConstructorList from '../components/constructors/ConstructorList';
 import { getConstructors } from '../functions/getConstructors';
 
-const ConstructorsPage = async({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
+const ConstructorsPage = async({ searchParams }: { searchParams: { [key: string]: string } }) => {
 
     const constructorsPerPage = 12;
     const currentPage = parseInt(searchParams.page);
@@ -14,7 +14,7 @@ const ConstructorsPage = async({ searchParams }: { searchParams: { [key: string]
             <div className='flex flex-col items-center py-48'>
                 <h1 className='text-black text-3xl font-bold'>Constructores</h1>
                 <ConstructorList
-                    constructors={constructors.constructors}
+                    constructors={constructors.teams}
                     qConstructors={constructors.qConstructors}
                 />
             </div>

@@ -5,75 +5,87 @@ import { ResultsResponse } from '@/app/types/ResultTypes';
 import Link from 'next/link';
 
 interface ConstructorsDrivenByDriverProps {
-    constructorsId?: number[];
-    driverId?: number;
+    constructorsId: number[];
+    driverId: number;
 }
-
+//@ts-ignore
 const ConstructorsDrivenByDriver: React.FC<ConstructorsDrivenByDriverProps> = async ({ constructorsId, driverId }) => {
 
     const constructors = await getConstructorResultsByDriverAndConstructorId({ constructorId: constructorsId, driverId: driverId });
 
     let totalPointsWithConstructors = 0;
-    let totalPointsWithConstructorsArray = []
+    let totalPointsWithConstructorsArray: number[] = []
 
     let totalLapsWithConstructors = 0;
-    let totalLapsWithConstructorsArray = [];
+    let totalLapsWithConstructorsArray: number[] = [];
 
 
-    const racesWithConstructors = constructors.constructor?.map((constructor) => {
-        return constructor.results?.filter(result => result.raceId).length
+    const racesWithConstructors = constructors.team.map((constructor) => {
+        return constructor.results.filter(result => result.raceId).length
     });
 
-    const winsWithConstructors = constructors.constructor?.map((constructor) => {
-        return constructor.results?.filter(result => result.positionText === '1').length;
+    const winsWithConstructors = constructors.team.map((constructor) => {
+        return constructor.results.filter(result => result.positionText === '1').length;
     });
 
-    const podiumsWithConstructors = constructors.constructor?.map((constructor) => {
-        return constructor.results?.filter(result => result.positionText === '1' || result.positionText === '2' || result.positionText === '3').length;
+    const podiumsWithConstructors = constructors.team.map((constructor) => {
+        return constructor.results.filter(result => result.positionText === '1' || result.positionText === '2' || result.positionText === '3').length;
     });
 
-    const polesWithConstructors = constructors.constructor?.map((constructor) => {
-        return constructor.results?.filter(result => result.grid === 1).length;
+    const polesWithConstructors = constructors.team.map((constructor) => {
+        return constructor.results.filter(result => result.grid === 1).length;
     });
 
-    const pointsWithConstructors = constructors.constructor?.map((constructor) => {
-        return constructor.results?.filter(result => result.points !== 0).map(points => points.points);
+    const pointsWithConstructors = constructors.team.map((constructor) => {
+        return constructor.results.filter(result => result.points !== 0).map(points => points.points);
     });
 
-    const lapsWithConstructors = constructors.constructor?.map((constructor) => {
-        return constructor.results?.filter(result => result.laps !== 0).map(laps => laps.laps);
+    const lapsWithConstructors = constructors.team.map((constructor) => {
+        return constructor.results.filter(result => result.laps !== 0).map(laps => laps.laps);
     })
 
-    const retirementsWithConstructors = constructors.constructor?.map((constructor) => {
-        return constructor.results?.filter(result => result.position === null).length;
+    const retirementsWithConstructors = constructors.team.map((constructor) => {
+        return constructor.results.filter(result => result.position === null).length;
     })
 
-    const fastestLapsWithConstructors = constructors.constructor?.map((constructor) => {
-        return constructor.results?.filter(result => result.rank === 1).length;
+    const fastestLapsWithConstructors = constructors.team.map((constructor) => {
+        return constructor.results.filter(result => result.rank === 1).length;
     })
+
 
 
     for (let i = 0; i < pointsWithConstructors.length; i++) {
-        for (let z = 0; z < pointsWithConstructors[i]?.length; z++) {
+
+
+        for (let z = 0; z < pointsWithConstructors[i].length; z++) {
             totalPointsWithConstructors = pointsWithConstructors[i][z] + totalPointsWithConstructors;
         }
+
+
         totalPointsWithConstructorsArray.push(totalPointsWithConstructors);
         totalPointsWithConstructors = 0;
     }
 
+
+
     for (let i = 0; i < lapsWithConstructors.length; i++) {
-        for (let z = 0; z < lapsWithConstructors[i]?.length; z++) {
+
+
+        for (let z = 0; z < lapsWithConstructors[i].length; z++) {
             totalLapsWithConstructors = lapsWithConstructors[i][z] + totalLapsWithConstructors;
         }
+
+
         totalLapsWithConstructorsArray.push(totalLapsWithConstructors);
         totalLapsWithConstructors = 0;
     }
 
-    return (
 
+
+    return (
         <>
             {
-                constructors.constructor?.map((constructor, index) => {
+                constructors.team.map((constructor, index) => {
                     return (
                         <div key={constructor.constructorId} className='flex flex-col items-center gap-2'>
                             <Link
@@ -168,7 +180,6 @@ const ConstructorsDrivenByDriver: React.FC<ConstructorsDrivenByDriverProps> = as
                 })
             }
         </>
-
     );
 }
 

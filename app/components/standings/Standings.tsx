@@ -1,15 +1,17 @@
 import { ConstructorStandingsResponse } from '@/app/types/ConstructorStandingsTypes';
 import { DriverStandingsResponse } from '@/app/types/DriverStandingsTypes';
-import DriverStandingsColumns from '../drivers/DriverStandingsColumns';
-import ConstructorStandingsColumns from '../constructors/ConstructorStandingsColumns';
+import DriverStandingsTable from '../drivers/DriverStandingsTable';
+import ConstructorStandingsTable from '../constructors/ConstructorStandingsTable';
 import { BiSad } from 'react-icons/bi';
+import { constructorStandings, driverStandings } from '@prisma/client';
 
 interface StandingsProps {
-    constructorStandings?: ConstructorStandingsResponse[];
-    driverStandings?: DriverStandingsResponse[];
+    constructorStandings: constructorStandings[];
+    driverStandings: driverStandings[];
 }
 
 const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStandings }) => {
+    console.log(constructorStandings);
     return (
         <>
             <div className='flex flex-col items-center gap-5'>
@@ -30,7 +32,7 @@ const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStand
                                     {
                                         constructorStandings.map((constructorStanding) => {
                                             return (
-                                                <ConstructorStandingsColumns
+                                                <ConstructorStandingsTable
                                                     key={constructorStanding.constructorStandingsId}
                                                     constructorStanding={constructorStanding}
                                                     constructorId={constructorStanding.constructorId}
@@ -47,6 +49,18 @@ const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStand
                             </div>
                         )
                     }
+                    {/* {
+                        constructorStandings ? (
+                            <ConstructorStandingsTable
+                                constructorsStandings={constructorStandings}
+                            />
+                        ) : (
+                            <div className='flex flex-col items-center gap-2 mt-10'>
+                                <BiSad size={50} />
+                                <p>No Data</p>
+                            </div>
+                        )
+                    } */}
                 </div>
             </div>
             <div className='flex flex-col items-center gap-5'>
@@ -67,7 +81,7 @@ const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStand
                                     {
                                         driverStandings.map((driverStanding) => {
                                             return (
-                                                <DriverStandingsColumns
+                                                <DriverStandingsTable
                                                     key={driverStanding.driverStandingsId}
                                                     driverStanding={driverStanding}
                                                     driverId={driverStanding.driverId}
@@ -84,6 +98,18 @@ const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStand
                             </div>
                         )
                     }
+                    {/* {
+                        driverStandings ? (
+                            <DriverStandingsTable
+                                driversStandings={driverStandings}
+                            />
+                        ) : (
+                            <div className='flex flex-col items-center gap-2 mt-10'>
+                                <BiSad size={50} />
+                                <p>No Data</p>
+                            </div>
+                        )
+                    } */}
                 </div>
             </div>
         </>

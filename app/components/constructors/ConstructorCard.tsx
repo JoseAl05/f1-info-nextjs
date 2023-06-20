@@ -9,20 +9,21 @@ import { FaWikipediaW } from 'react-icons/fa';
 import { ConstructorResponse } from '@/app/types/ConstructorTypes';
 import ConstructorImage from './ConstructorImage';
 import { useRouter } from 'next/navigation';
+import { constructors } from '@prisma/client';
 
 interface ConstructorCardProps {
-    constructor: ConstructorResponse;
+    team: constructors;
     constructorsPerPage: number;
 }
 
-const ConstructorCard: React.FC<ConstructorCardProps> = ({ constructor, constructorsPerPage }) => {
+const ConstructorCard: React.FC<ConstructorCardProps> = ({ team, constructorsPerPage }) => {
 
     const router = useRouter();
 
     return (
         <>
             <div
-                onClick={() => router.push(`/constructors/${constructor.constructorId}/${constructor.name}`)}
+                onClick={() => router.push(`/constructors/${team.constructorId}/${team.name}`)}
                 className='
                     flex
                     flex-col
@@ -41,14 +42,14 @@ const ConstructorCard: React.FC<ConstructorCardProps> = ({ constructor, construc
                     w-full
                 '
             >
-                <h1 className='text-xl font-semibold text-black transition group-hover:text-white'>{constructor.name}</h1>
+                <h1 className='text-xl font-semibold text-black transition group-hover:text-white'>{team.name}</h1>
                 <hr className='w-full border-black' />
                 <div className='flex flex-row gap-2'>
                     <BiWorld size={24} className='group-hover:text-white' />
-                    <span className='group-hover:text-white'>{constructor.nationality}</span>
+                    <span className='group-hover:text-white'>{team.nationality}</span>
                 </div>
                 <ConstructorImage
-                    team={constructor}
+                    team={team}
                 />
                 <span className='invisible group-hover:visible group-hover:mx-auto group-hover:font-bold group-hover:text-xl group-hover:text-white'>Ver resultados</span>
             </div>

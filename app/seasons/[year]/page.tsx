@@ -3,7 +3,7 @@ import Container from '../../components/Container';
 import RacesList from '@/app/components/races/RacesList';
 
 interface SeasonParams {
-    year?: number;
+    year?: string;
 }
 
 const SeasonPerYearPage = async ({
@@ -11,15 +11,16 @@ const SeasonPerYearPage = async ({
     searchParams,
 }: {
     params: SeasonParams;
-    searchParams?: { [key: string]: string | string[] | undefined };
+    searchParams?: { [key: string]: string | undefined };
 }
 ) => {
 
     const { year } = params;
-    const currentPage = parseInt(searchParams.page);
+    const currentPage = parseInt(searchParams?.page!);
     const racesPerPage = 10;
+    const formattedYear = year ? year : '';
 
-    const races = await getRaces({ currentPage: currentPage, racesPerPage: racesPerPage, year: year });
+    const races = await getRaces({ currentPage: currentPage, racesPerPage: racesPerPage, year: parseInt(formattedYear) });
 
 
     return (

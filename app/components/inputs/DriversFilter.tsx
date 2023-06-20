@@ -2,24 +2,40 @@
 
 import Select from "react-select";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import qs from 'query-string';
+import qs, { ParsedQuery } from 'query-string';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import AlphabetFilter from './AlphabetFilter';
 import Button from '../buttons/Button';
 
 type Inputs = {
-    dataPerPage: string,
-    sortByLetter:string,
+    dataPerPage: number,
+    sortByLetter: string | null,
 };
 
 type SearchInput = {
-    driverName:string;
+    driverName: string;
 }
+
+type Query = {
+    dataPerPage?: ParsedQuery<string>,
+    sortByLetter?: ParsedQuery<string>,
+}
+
+type EntriesOptions = {
+    value: number,
+    label: string,
+}
+
 
 const DriversFilter = () => {
 
-    let currentQuery = {};
+    let currentQuery: Query = {};
     const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'];
+    const entriesOptions: EntriesOptions[] = [
+        { value: 24, label: "24 Entries" },
+        { value: 48, label: "48 Entries" },
+        { value: 60, label: "60 Entries" }
+    ]
 
     const router = useRouter();
     const pathname = usePathname();
@@ -28,13 +44,13 @@ const DriversFilter = () => {
     const { control, handleSubmit, reset, watch, setValue } = useForm({
         defaultValues: {
             dataPerPage: 12,
-            sortByLetter: null,
+            sortByLetter: '',
         }
     });
 
     const searchForm = useForm({
-        defaultValues:{
-            driverName:null
+        defaultValues: {
+            driverName: ''
         }
     })
 
@@ -42,21 +58,30 @@ const DriversFilter = () => {
 
     const onSubmit: SubmitHandler<Inputs> = data => {
 
-        const driversPerPage = Object.hasOwn(data.dataPerPage, 'value') ? data.dataPerPage.value : data.dataPerPage;
-        const sortByLetter = data.sortByLetter;
+        let driversPerPage = 0;
+
+
+        if (typeof data.dataPerPage !== 'number') {
+            driversPerPage = data.dataPerPage['value'];
+
+        } else {
+            driversPerPage = data.dataPerPage
+        }
+
+        const sortByLetter = data.sortByLetter?.length !== 0 ? data.sortByLetter : null;
 
         if (driversPerPage) {
             currentQuery.dataPerPage = qs.parse(driversPerPage.toString());
         }
 
-        if(sortByLetter){
+        if (sortByLetter) {
             currentQuery.sortByLetter = qs.parse(sortByLetter.toString());
         }
 
         const updatedQuery: any = {
             ...currentQuery,
             dataPerPage: driversPerPage,
-            sortByLetter:sortByLetter,
+            sortByLetter: sortByLetter,
             page: 0,
         }
 
@@ -80,14 +105,14 @@ const DriversFilter = () => {
         const formattedDriverForename = arr[0];
         const formattedDriverSurname = arr[1];
 
-        if(formattedDriverForename || formattedDriverSurname){
+        if (formattedDriverForename || formattedDriverSurname) {
             currentQuery = qs.parse(formattedDriverForename + formattedDriverSurname);
         }
 
         const updatedQuery: any = {
             ...currentQuery,
-            driverForename:formattedDriverForename,
-            driverSurname:formattedDriverSurname,
+            driverForename: formattedDriverForename,
+            driverSurname: formattedDriverSurname,
             page: 0,
         }
 
@@ -102,11 +127,11 @@ const DriversFilter = () => {
 
     const cleanFilters = () => {
         reset({
-            dataPerPage:12,
-            sortByLetter:null,
+            dataPerPage: 12,
+            sortByLetter: '',
         });
         searchForm.reset({
-            driverName:null,
+            driverName: '',
         })
         router.push('/drivers?page=0');
     }
@@ -122,11 +147,8 @@ const DriversFilter = () => {
                         <Select
                             className='max-w-sm'
                             {...field}
-                            options={[
-                                { value: 24, label: "24 Entries" },
-                                { value: 48, label: "48 Entries" },
-                                { value: 60, label: "60 Entries" }
-                            ]}
+                            //@ts-ignore
+                            options={entriesOptions}
                             isDisabled={params.get('driverForename') !== null}
                         />
                     }
@@ -138,7 +160,7 @@ const DriversFilter = () => {
                             return (
                                 <AlphabetFilter
                                     key={letter}
-                                    onClick={(value) => setValue('sortByLetter',value)}
+                                    onClick={(value) => setValue('sortByLetter', value)}
                                     selected={letterSelected === letter}
                                     label={letter}
                                     disabled={params.get('driverForename') !== null}
@@ -164,13 +186,30 @@ const DriversFilter = () => {
                     type="text"
                     {...searchForm.register('driverName')}
                     placeholder='Busca un piloto, ej: Fernando Alonso'
-                    className='w-full text-base p-2 border border-neutral-400 rounded-xl md:text-lg lg:text-xl md:w-[45vw] lg:w-[25vw]'
+                    className='w-full text-base p-2 border border-neutral-400 rounded-xl md:text-lg lg:text-xl md:w-[45vw] lg:w-[25vw] disabled:cursor-not-allowed'
                     disabled={params.get('sortByLetter') !== null}
                 />
                 <input
                     type="submit"
                     value='Buscar'
-                    className='text-lg text-black font-light p-3 bg-transparent border border-black rounded-xl cursor-pointer transition hover:bg-red-600 hover:text-white'
+                    className='
+                        text-lg
+                        text-black
+                        font-light
+                        p-3
+                        bg-transparent
+                        border
+                        border-black
+                        rounded-xl
+                        cursor-pointer
+                        transition
+                        hover:bg-red-600
+                        hover:text-white
+                        disabled:cursor-not-allowed
+                        disabled:hover:bg-transparent
+                        disabled:hover:text-black
+                    '
+                    disabled={params.get('sortByLetter') !== null}
                 />
             </form>
         </>

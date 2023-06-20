@@ -9,7 +9,7 @@ export type ImageID = {
 };
 
 export type ImagePage = {
-  [key?: number]: ImageData;
+  [key: number]: ImageData;
 };
 
 export type ImageThumbnail = {

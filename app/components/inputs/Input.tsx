@@ -8,7 +8,7 @@ interface InputProps {
     label: string;
     value: string;
     disabled?: boolean;
-    onChange: (value: string | null) => void;
+    onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({ id, type, label, value, disabled, onChange }) => {

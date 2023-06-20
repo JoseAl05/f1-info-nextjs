@@ -10,7 +10,7 @@ export interface IDriverParams {
 }
 
 export interface IDriverByIdParams {
-  driverId: number;
+  driverId: number | number[];
 }
 
 export async function getDrivers(params: IDriverParams) {
@@ -23,7 +23,7 @@ export async function getDrivers(params: IDriverParams) {
       driverSurname,
     } = params;
 
-    let query = {};
+    let query:any = {};
 
     if (sortByLetter?.length !== 0) {
       query.forename = {
@@ -51,8 +51,8 @@ export async function getDrivers(params: IDriverParams) {
     });
 
     return {
-      drivers: drivers as DriverResponse[] | null,
-      qDrivers: qDrivers as number | null,
+      drivers: drivers,
+      qDrivers: qDrivers as number,
     };
   } catch (error: any) {
     throw new Error(error.message);
@@ -63,20 +63,25 @@ export async function getDriverById(params: IDriverByIdParams) {
   try {
     const { driverId } = params;
 
-    let query = {};
+    let query:any = {};
 
     if (driverId && !Array.isArray(driverId)) {
+
       query.driverId = driverId;
+
       const driver = await prisma.drivers.findUnique({
         where: query,
         include: {
           results: true,
         },
       });
+
       return {
-        driver: driver as DriverResponse | null,
-        qResultsByDriver: driver?.results?.length as number | null,
+        driver: driver,
+        results: driver!.results,
+        qResultsByDriver: driver!.results.length as number,
       };
+
     }
 
     query.driverId = {
@@ -85,11 +90,12 @@ export async function getDriverById(params: IDriverByIdParams) {
 
     const driver = await prisma.drivers.findMany({
       where: query,
+      include:{
+        results:true,
+      }
     });
-
     return {
-      driver: driver as DriverResponse[] | null,
-      qResultsByDriver: driver?.results?.length as number | null,
+      driver: driver,
     };
 
 

@@ -1,6 +1,6 @@
 import prisma from '@/app/libs/prismadb';
-import { CircuitResponse } from '../types/CircuitTypes';
 import { RaceResponse } from '../types/RaceTypes';
+import { Prisma } from '@prisma/client';
 
 export interface ICircuitParams {
   circuitsPerPage: number;
@@ -11,10 +11,12 @@ export interface ICircuitParams {
 export interface IRacesByCircuitParams {
   racesPerPage: number;
   currentPage: number;
-  circuitId?: string;
+  circuitId: number;
 }
 
+
 export async function getCircuits(params: ICircuitParams) {
+
   try {
     const { circuitsPerPage, currentPage, circuitCountry } = params;
 
@@ -22,15 +24,17 @@ export async function getCircuits(params: ICircuitParams) {
     //Cada vez que se encuentre un espacio en blanco
     const arr = circuitCountry?.split(' ');
     //Se crea un loop por cada elemento del arreglo y se cambia la primera letra a mayúscula
-    for (let i = 0; i < arr?.length; i++) {
-      arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    if(arr && arr.length !== undefined){
+      for (let i = 0; i < arr?.length; i++) {
+        arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+      }
     }
 
     //Se añaden todos los elementos del array a un nuevo string
     //Usando un espacio en blanco para separar cada palabra.
     const finalFilterString = arr?.join(' ');
 
-    let query = {};
+    let query:any = {};
 
     //Si es que el usuario buscó el circuit por país
     //Se crea la query para obtener los circuitos filtrados.
@@ -57,11 +61,11 @@ export async function getCircuits(params: ICircuitParams) {
       orderBy: {
         name: 'asc',
       },
-    });
+    })
 
     return {
-      circuits: circuits as CircuitResponse[] | null,
-      qCircuits: qCircuits as number | null,
+      circuits: circuits,
+      qCircuits: qCircuits as number,
     };
   } catch (error: any) {
     throw new Error(error.message);
@@ -75,7 +79,7 @@ export async function getRacesByCircuit(params: IRacesByCircuitParams) {
 
     const racesPerCircuits = await prisma.circuits.findMany({
       where: {
-        circuitId: parseInt(circuitId),
+        circuitId: circuitId,
       },
       include: {
         races: {
@@ -87,11 +91,13 @@ export async function getRacesByCircuit(params: IRacesByCircuitParams) {
     });
 
     return {
-      racesPerCircuit: racesPerCircuits[0].races as RaceResponse | null,
-      qRacesPerCircuit: racesPerCircuits[0]._count.races as number | null,
+      racesPerCircuit: racesPerCircuits[0].races,
+      qRacesPerCircuit: racesPerCircuits[0]._count.races as number,
     };
 
   } catch (error: any) {
     throw new Error(error.message);
   }
 }
+
+

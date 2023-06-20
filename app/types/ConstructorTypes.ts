@@ -6,5 +6,5 @@ export type ConstructorResponse = {
     name:string;
     nationality:string;
     url:string;
-    results?:ResultsResponse[];
+    results:ResultsResponse[];
 }

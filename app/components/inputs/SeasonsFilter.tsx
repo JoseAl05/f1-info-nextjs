@@ -2,29 +2,46 @@
 
 import Select from "react-select";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import qs from 'query-string';
+import qs, { ParsedQuery } from 'query-string';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import Button from '../buttons/Button';
 import { SeasonResponse } from '@/app/types/SeasonTypes';
+import { seasons } from '@prisma/client';
 
 
 type Inputs = {
-    dataPerPage: string,
+    dataPerPage: number,
+    decade: number,
 };
 
+type EntriesOptions = {
+    value: number,
+    label: string,
+}
+
+type DecadesOptions = {
+    value: number,
+    label: string
+}
+
+type Query = {
+    dataPerPage?: ParsedQuery<string>,
+    decade?: ParsedQuery<string>,
+}
+
 interface SeasonFilterProps {
-    seasons?: SeasonResponse[];
+    seasons: seasons[];
 }
 
 const SeasonsFilter: React.FC<SeasonFilterProps> = ({ seasons }) => {
 
-    let currentQuery = {};
+    let currentQuery: Query = {};
 
     const router = useRouter();
     const pathname = usePathname();
     const params = useSearchParams();
 
-    const seasonsDecadesOptions = [];
+    const seasonsDecadesOptions: DecadesOptions[] = [];
 
     for (let year = 1950; year <= 2020; year += 10) {
         const decade = Math.floor(year / 10) * 10;
@@ -32,7 +49,7 @@ const SeasonsFilter: React.FC<SeasonFilterProps> = ({ seasons }) => {
         seasonsDecadesOptions.push({ value: year, label: label });
     }
 
-    const entriesOptions = [
+    const entriesOptions: EntriesOptions[] = [
         { value: 24, label: "24 Entries" },
         { value: 48, label: "48 Entries" },
         { value: 60, label: "60 Entries" }
@@ -42,14 +59,28 @@ const SeasonsFilter: React.FC<SeasonFilterProps> = ({ seasons }) => {
     const { control, handleSubmit, reset, watch, setValue } = useForm({
         defaultValues: {
             dataPerPage: 12,
-            decade: null,
+            decade: 0,
         }
     });
 
     const onSubmit: SubmitHandler<Inputs> = data => {
 
-        const seasonsPerPage = Object.hasOwn(data.dataPerPage, 'value') ? data.dataPerPage.value : data.dataPerPage;
-        const decade = data.decade ? data.decade.value : null;
+        let seasonsPerPage = 0;
+
+        let decade = 0;
+
+        if (typeof data.dataPerPage !== 'number') {
+            seasonsPerPage = data.dataPerPage['value'];
+
+        } else {
+            seasonsPerPage = data.dataPerPage;
+        }
+
+        if (typeof data.decade !== 'number') {
+            decade = data.decade['value'];
+        } else {
+            decade = data.decade;
+        }
 
         if (seasonsPerPage) {
             currentQuery.dataPerPage = qs.parse(seasonsPerPage.toString());
@@ -96,6 +127,7 @@ const SeasonsFilter: React.FC<SeasonFilterProps> = ({ seasons }) => {
                                 <Select
                                     className='max-w-lg w-[20vw]'
                                     {...field}
+                                    //@ts-ignore
                                     options={entriesOptions}
                                 />
                             }
@@ -110,6 +142,7 @@ const SeasonsFilter: React.FC<SeasonFilterProps> = ({ seasons }) => {
                                 <Select
                                     className='max-w-lg w-[20vw]'
                                     {...field}
+                                    //@ts-ignore
                                     options={seasonsDecadesOptions}
                                 />
                             }

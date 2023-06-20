@@ -12,9 +12,10 @@ import Image from 'next/image';
 import DriverImage from './DriverImage';
 import { useRouter } from 'next/navigation';
 import EmptyState from '../emptyState/EmptyState';
+import { drivers } from '@prisma/client';
 
 interface DriverCardProps {
-    driver: DriverResponse;
+    driver: drivers;
     driversPerPage: number;
 }
 

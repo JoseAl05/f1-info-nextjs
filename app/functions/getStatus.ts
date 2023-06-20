@@ -2,14 +2,14 @@ import prisma from '@/app/libs/prismadb';
 import { StatusResponse } from '../types/StatusType';
 
 export interface IStatusParams {
-  statusId?: number;
+  statusId: number;
 }
 
 export async function getStatusById(params: IStatusParams) {
   try {
     const {statusId} = params;
 
-    let query = {};
+    let query:any = {};
 
     if(statusId){
         query.statusId = statusId;
@@ -19,12 +19,8 @@ export async function getStatusById(params: IStatusParams) {
         where:query
     });
 
-    if(!status){
-        return null;
-    }
-
     return {
-        status:status as StatusResponse
+        status:status
     }
   } catch (error: any) {
     throw new Error(error.message);

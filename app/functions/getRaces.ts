@@ -4,8 +4,7 @@ import { RaceResponse } from '../types/RaceTypes';
 export interface IRaceParams {
   racesPerPage: number;
   currentPage: number;
-  circuitId: string;
-  year?: number;
+  year: number;
 }
 
 export interface IRaceByIdParams {
@@ -14,13 +13,13 @@ export interface IRaceByIdParams {
 
 export async function getRaces(params: IRaceParams) {
   try {
-    const { racesPerPage, currentPage, circuitId, year } = params;
-    let query = {};
+    const { racesPerPage, currentPage, year } = params;
+    let query:any = {};
 
     //Si se seleccionó un año.
     //Se añade a la query.
     if (year) {
-      query.year = parseInt(year);
+      query.year = year;
     }
 
     //Se obtiene la cantidad de carreras con el filtro aplicado.
@@ -32,17 +31,14 @@ export async function getRaces(params: IRaceParams) {
       skip: currentPage,
       take: racesPerPage,
       where: query,
-      include: {
-        circuits: true,
-      },
       orderBy: {
         round: 'asc',
       },
     });
 
     return {
-      races: races as RaceResponse[] | null,
-      qRaces: qRaces as number | null,
+      races: races,
+      qRaces: qRaces as number,
     };
   } catch (error: any) {
     throw new Error(error.message);
@@ -53,7 +49,7 @@ export async function getRaceById(params: IRaceByIdParams) {
   try {
     const { raceId } = params;
 
-    let query = {};
+    let query:any = {};
 
     if (raceId) {
       query.raceId = raceId;
@@ -77,12 +73,8 @@ export async function getRaceById(params: IRaceByIdParams) {
         }
     })
 
-    if(!race?.qualifying){
-      return null;
-    }
-
     return {
-        race: race as RaceResponse | null
+        race: race
     }
 
   } catch (error: any) {

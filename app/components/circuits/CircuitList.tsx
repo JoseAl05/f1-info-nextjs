@@ -8,10 +8,11 @@ import Button from '../buttons/Button';
 import { CircuitResponse } from '@/app/types/CircuitTypes';
 import Input from '../inputs/Input';
 import qs from 'query-string';
+import { circuits } from '@prisma/client';
 
 interface CircuitListProps {
-    circuits?: CircuitResponse[];
-    qCircuits?: number;
+    circuits: circuits[];
+    qCircuits: number;
 }
 
 const CircuitList: React.FC<CircuitListProps> = ({ circuits, qCircuits }) => {
@@ -56,7 +57,7 @@ const CircuitList: React.FC<CircuitListProps> = ({ circuits, qCircuits }) => {
                         label='Pais del circuito'
                         type='text'
                         value={circuitCountryInput}
-                        onChange={(value) => {
+                        onChange={(value:React.ChangeEvent<HTMLInputElement>) => {
                             setCircuitCountryInput(value.target.value);
                         }}
                     />
@@ -77,7 +78,7 @@ const CircuitList: React.FC<CircuitListProps> = ({ circuits, qCircuits }) => {
                 </div>
             </div>
             <div className='pt-10 flex flex-col gap-8'>
-                {circuits?.map((circuit) => {
+                {circuits.map((circuit) => {
                     return (
                         <CircuitCard
                             key={circuit.circuitId}

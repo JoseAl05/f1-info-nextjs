@@ -5,11 +5,11 @@ import { getDrivers } from '../functions/getDrivers';
 
 const DriversPage = async({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
 
-    const driversPerPage = searchParams.dataPerPage ? parseInt(searchParams.dataPerPage) : 12;
-    const currentPage = parseInt(searchParams.page);
-    const sortDriversByForename = searchParams.sortByLetter ? searchParams.sortByLetter : '';
-    const driverForename = searchParams.driverForename ? searchParams.driverForename : null;
-    const driverSurname = searchParams.driverSurname ? searchParams.driverSurname : null;
+    const driversPerPage = searchParams?.dataPerPage ? parseInt(searchParams?.dataPerPage!) : 12;
+    const currentPage = parseInt(searchParams?.page!);
+    const sortDriversByForename = searchParams?.sortByLetter ? searchParams?.sortByLetter! : '';
+    const driverForename = searchParams?.driverForename ? searchParams?.driverForename! : null;
+    const driverSurname = searchParams?.driverSurname ? searchParams?.driverSurname! : null;
 
     const drivers = await getDrivers({currentPage:currentPage,driversPerPage:driversPerPage,sortByLetter:sortDriversByForename,driverForename:driverForename,driverSurname:driverSurname});
 
