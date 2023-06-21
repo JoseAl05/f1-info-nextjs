@@ -14,59 +14,59 @@ export interface IRacesByCircuitParams {
   circuitId: number;
 }
 
-
 export async function getCircuits(params: ICircuitParams) {
-
   try {
     const { circuitsPerPage, currentPage, circuitCountry } = params;
 
-    //Se separa el string en un arreglo de strings
-    //Cada vez que se encuentre un espacio en blanco
-    const arr = circuitCountry?.split(' ');
-    //Se crea un loop por cada elemento del arreglo y se cambia la primera letra a mayúscula
-    if(arr && arr.length !== undefined){
-      for (let i = 0; i < arr?.length; i++) {
-        arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-      }
-    }
-
-    //Se añaden todos los elementos del array a un nuevo string
-    //Usando un espacio en blanco para separar cada palabra.
-    const finalFilterString = arr?.join(' ');
-
-    let query:any = {};
+    let query: any = {};
 
     //Si es que el usuario buscó el circuit por país
     //Se crea la query para obtener los circuitos filtrados.
     if (circuitCountry) {
-      query.OR = [
-        {
-          name: finalFilterString,
-        },
-        {
-          country: finalFilterString,
-        },
-      ];
+      if (circuitCountry !== 'all') {
+        query.OR = [
+          {
+            name: circuitCountry,
+          },
+          {
+            country: circuitCountry,
+          },
+        ];
+
+        const qCircuits = await prisma.circuits.count({
+          where: query,
+        });
+        const circuits = await prisma.circuits.findMany({
+          skip: currentPage,
+          take: circuitsPerPage,
+          where: query,
+          orderBy: {
+            name: 'asc',
+          },
+        });
+        return {
+          circuits: circuits,
+          qCircuits: qCircuits as number,
+        };
+      } else {
+
+        //Cantidad de circuitos aplicando el filtro.
+        const qCircuits = await prisma.circuits.count();
+
+        const circuits = await prisma.circuits.findMany({
+          skip: currentPage,
+          take: circuitsPerPage,
+          orderBy: {
+            name: 'asc',
+          },
+        });
+
+        return {
+          circuits: circuits,
+          qCircuits: qCircuits as number,
+        };
+      }
     }
-
-    //Cantidad de circuitos aplicando el filtro.
-    const qCircuits = await prisma.circuits.count({
-      where: query,
-    });
-
-    const circuits = await prisma.circuits.findMany({
-      skip: currentPage,
-      take: circuitsPerPage,
-      where: query,
-      orderBy: {
-        name: 'asc',
-      },
-    })
-
-    return {
-      circuits: circuits,
-      qCircuits: qCircuits as number,
-    };
   } catch (error: any) {
     throw new Error(error.message);
   }
@@ -94,10 +94,21 @@ export async function getRacesByCircuit(params: IRacesByCircuitParams) {
       racesPerCircuit: racesPerCircuits[0].races,
       qRacesPerCircuit: racesPerCircuits[0]._count.races as number,
     };
-
   } catch (error: any) {
     throw new Error(error.message);
   }
 }
 
+export async function getCircuitsCountries() {
+  try {
+    const countries = await prisma.circuits.findMany({
+      select: {
+        country: true,
+      },
+    });
 
+    return countries;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}

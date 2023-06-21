@@ -5,7 +5,6 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import qs, { ParsedQuery } from 'query-string';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import Button from '../buttons/Button';
-import { SeasonResponse } from '@/app/types/SeasonTypes';
 import { seasons } from '@prisma/client';
 
 
