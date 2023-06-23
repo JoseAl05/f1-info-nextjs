@@ -29,7 +29,6 @@ const Pagination: React.FC<PaginationProps> = ({ count, dataPerPage, currentPath
     if (numberOfPages === dataPerPage && count <= 10) {
         numberOfPages = 0;
     }
-
     let currentQuery = {};
 
     const onNext = () => {

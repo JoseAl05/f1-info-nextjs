@@ -14,9 +14,10 @@ interface SeasonListProps {
 
 const SeasonsList:React.FC<SeasonListProps> = ({seasons,qSeasons}) => {
 
-    const seasonsPerPage = 12;
     const params = useSearchParams();
     const router = useRouter();
+    //@ts-ignore
+    const seasonsPerPage = params.get('dataPerPage') ? parseInt(params.get('dataPerPage')) : 12;
 
 
     return (
