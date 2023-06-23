@@ -72,32 +72,7 @@ export async function getCircuits(params: ICircuitParams) {
   }
 }
 
-//Funcion para obtener todas las carreras que se han disputado en el circuito seleccionado.
-export async function getRacesByCircuit(params: IRacesByCircuitParams) {
-  try {
-    const { racesPerPage, currentPage, circuitId } = params;
 
-    const racesPerCircuits = await prisma.circuits.findMany({
-      where: {
-        circuitId: circuitId,
-      },
-      include: {
-        races: {
-          skip: currentPage,
-          take: racesPerPage,
-        },
-        _count: true,
-      },
-    });
-
-    return {
-      racesPerCircuit: racesPerCircuits[0].races,
-      qRacesPerCircuit: racesPerCircuits[0]._count.races as number,
-    };
-  } catch (error: any) {
-    throw new Error(error.message);
-  }
-}
 
 export async function getCircuitsCountries() {
   try {

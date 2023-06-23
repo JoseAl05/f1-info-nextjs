@@ -30,13 +30,24 @@ export async function getDrivers(params: IDriverParams) {
         startsWith: sortByLetter,
       };
     }
-    if (driverForename) {
-      query.forename = driverForename;
+    if (driverForename && driverSurname) {
+      query.OR = [
+        {
+          forename:{
+            contains:driverForename
+          }
+        },
+        {
+          surname:{
+            contains:driverSurname
+          }
+        }
+      ];
     }
 
-    if (driverSurname) {
-      query.surname = driverSurname;
-    }
+    // if (driverSurname) {
+    //   query.surname = driverSurname;
+    // }
 
     const qDrivers = await prisma.drivers.count({
       where: query,
