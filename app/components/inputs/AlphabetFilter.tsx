@@ -41,6 +41,8 @@ const AlphabetFilter: React.FC<AlphaberFilterProps> = ({ onClick, selected, labe
                                 border-2
                                 p-4
                                 cursor-not-allowed
+                                bg-neutral-200
+                                border-neutral-200
                             '
                     >
                         <p className='font-semibold'>

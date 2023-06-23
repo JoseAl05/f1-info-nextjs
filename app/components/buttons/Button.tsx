@@ -31,7 +31,6 @@ const Button:React.FC<ButtonProps> = ({
                 transition
                 disabled:opacity-70
                 disabled:cursor-not-allowed
-                hover:opacity-90
                 hover:bg-red-600
                 hover:text-white
                 lg:text-xl

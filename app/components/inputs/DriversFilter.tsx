@@ -173,7 +173,24 @@ const DriversFilter = () => {
                     <input
                         type="submit"
                         value='Aplicar filtros'
-                        className='text-lg text-black font-light p-3 bg-transparent border border-black rounded-xl cursor-pointer transition hover:bg-red-600 hover:text-white'
+                        className='
+                            text-lg
+                            text-black
+                            font-light
+                            p-3
+                            bg-transparent
+                            border
+                            border-black
+                            rounded-xl
+                            cursor-pointer
+                            transition
+                            disabled:cursor-not-allowed
+                            disabled:hover:bg-white
+                            disabled:hover:text-black
+                            hover:bg-red-600
+                            hover:text-white
+                        '
+                        disabled={params.get('driverForename') !== null}
                     />
                     <Button
                         label='Limpiar Filtros'
