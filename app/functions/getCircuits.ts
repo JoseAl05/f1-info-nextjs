@@ -8,11 +8,7 @@ export interface ICircuitParams {
   circuitCountry?: string;
 }
 
-export interface IRacesByCircuitParams {
-  racesPerPage: number;
-  currentPage: number;
-  circuitId: number;
-}
+
 
 export async function getCircuits(params: ICircuitParams) {
   try {

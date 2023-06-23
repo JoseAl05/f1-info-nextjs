@@ -11,6 +11,12 @@ export interface IRaceByIdParams {
   raceId: number;
 }
 
+export interface IRacesByCircuitParams {
+  racesPerPage: number;
+  currentPage: number;
+  circuitId: number;
+}
+
 export async function getRaces(params: IRaceParams) {
   try {
     const { racesPerPage, currentPage, year } = params;
