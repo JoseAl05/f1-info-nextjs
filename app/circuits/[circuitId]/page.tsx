@@ -1,7 +1,7 @@
 import {getRaces} from '@/app/functions/getRaces';
 import Container from '../../components/Container';
 import RacesList from '@/app/components/races/RacesList';
-import {getRacesByCircuit} from '@/app/functions/getCircuits';
+import {getRacesByCircuit} from '@/app/functions/getRaces';
 
 interface RacesPerCircuitParams {
     circuitId: string;

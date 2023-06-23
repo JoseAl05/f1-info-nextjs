@@ -131,7 +131,7 @@ const SeasonsFilter: React.FC<SeasonFilterProps> = ({ seasons }) => {
                                 />
                             }
                         />
-                        <h1 className='pt-5 text-sm text-neutral-500 font-semibold tracking-tight leading-none'>Seleccione la cantidad de pilotos que desea ver por página y haga click en aplicar filtros.</h1>
+                        <h1 className='pt-5 text-sm text-neutral-500 font-semibold tracking-tight leading-none'>Seleccione la cantidad de temporadas que desea ver por página y haga click en aplicar filtros.</h1>
                     </div>
                     <div className='flex flex-col'>
                         <Controller
