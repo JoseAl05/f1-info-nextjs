@@ -57,7 +57,6 @@ const CountrySelect: React.FC<CountrySelectProps> = ({ countries }) => {
         }
     })
 
-    console.log(countriesOptions);
 
     const onSubmit: SubmitHandler<Inputs> = data => {
 

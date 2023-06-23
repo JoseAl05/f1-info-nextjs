@@ -11,7 +11,7 @@ interface StandingsProps {
 }
 
 const Standings: React.FC<StandingsProps> = ({ constructorStandings, driverStandings }) => {
-    console.log(constructorStandings);
+
     return (
         <>
             <div className='flex flex-col items-center gap-5'>
