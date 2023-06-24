@@ -1,38 +1,159 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Informula](https://nimbus-screenshots.s3.amazonaws.com/s/a1b2163db77f2b9ca141a012ab7a0d71.png)
 
-## Getting Started
+# Tools
+- [NextJS 13](https://nextjs.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Prisma](https://www.prisma.io)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Ergast API](http://ergast.com/mrd/)
 
-First, run the development server:
+# Ergast Database ERD and Ergast Database guide
+[Database Guide](http://ergast.com/docs/f1db_user_guide.txt)
+![ERD](http://ergast.com/images/ergast_db.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+# Functions
+## Circuits
+&nbsp;
+| Function Name | Parameters      | Parameter Type     |
+|---------------|-----------------|--------------------|
+|**getCircuits**| *circuitsPerPage* | number             |
+|               | *currentPage*     | number             |
+|               | *circuitCountry?* | string             |
+### Output
+- **Circuits**: Array of circuits
+- **qCircuits**: Number of circuits
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+&nbsp;
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Function Name        | Parameters | Parameter Type |
+|----------------------|------------|----------------|
+| **getCircuitsCountries** |            |                |
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Output
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- **Countries**: Array of countries that have circuits.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+***
 
-## Learn More
+## Seasons
+&nbsp;
+| Function Name     | Parameters     | Parameter Type |
+|-------------------|----------------|----------------|
+| **getSeasons**    | *seasonsPerPage* | number         |
+|                   | *currentPage*    | number         |
+|                   | *decade*         | number or null |
 
-To learn more about Next.js, take a look at the following resources:
+### Output
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Seasons**: Array of Seasons.
+- **qSeasons**: Number of Seasons.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+***
 
-## Deploy on Vercel
+# Drivers
+&nbsp;
+| **Function Name** | Parameters      | Parameter Type |
+|-------------------|-----------------|----------------|
+| **getDrivers**    | driversPerPage  | number         |
+|                   | currentPage     | number         |
+|                   | sortByLetter?   | string or null |
+|                   | driverForename? | string or null |
+|                   | driverSurname?  | string or null |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Output
+- **Drivers**: Array of Drivers.
+- **qDrivers**: Number of Drivers.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+&nbsp;
+
+| **Function Name**    | Parameters  | Parameter Type         |
+|----------------------|-------------|------------------------|
+| **getDriverById**    | driverId      | number or number[]   |
+
+### Output
+- **Driver**: Array of Drivers with his results.
+
+***
+
+# Constructors
+&nbsp;
+| **Function Name**    | Parameters            | Parameter Type |
+|----------------------|-----------------------|----------------|
+| **getConstructors**  | constructorsPerPage   | number         |
+|                      | currentPage           | number         |
+
+### Output
+- **Teams**: Array of Constructors.
+- **qConstructors**: Number of Constructors.
+
+&nbsp;
+
+| **Function Name**        | Parameters        | Parameter Type |
+|--------------------------|-------------------|----------------|
+| **getConstructorById**   | constructorId     | number or number[]|
+
+### Output
+- **Team**: A specific constructor given by its ID.
+- **Results**: All the race results of the constructor.
+
+&nbsp;
+
+| **Function Name**                                | Parameters                         | Parameter Type       |
+|--------------------------------------------------|------------------------------------|----------------------|
+| **getConstructorResultsByDriverAndConstructorId** | constructorId                      | number[]   |
+|                                                  | driverId                           | number |
+
+### Output
+- **Team**: The results of a driver with the constructor.
+
+***
+
+# Races
+&nbsp;
+| **Function Name** | Parameters      | Parameter Type |
+|-------------------|-----------------|----------------|
+| **getRaces**      | racesPerPage    | number         |
+|                   | currentPage     | number         |
+|                   | year            | number         |
+
+### Output
+- **Races**: Array of Races.
+- **qRaces**: Number of Races.
+
+&nbsp;
+
+| **Function Name** | Parameters  | Parameter Type  |
+|-------------------|-------------|-----------------|
+| **getRaceById**   | raceId      | number          |
+
+### Output
+- **Race**:A specific race with constructors standings, drivers standings and the results of the qualifying and race.
+
+&nbsp;
+
+| **Function Name**      | Parameters       | Parameter Type |
+|------------------------|------------------|----------------|
+| **getRacesByCircuit**   | racesPerPage     | number         |
+|                        | currentPage      | number         |
+|                        | circuitId        | number         |
+
+### Output
+- **RacesPerCircuit**: Array of races held on the given circuit.
+- **qRacesPerCircuit**: Number of races held on the given circuit.
+
+***
+# Status
+&nbsp;
+| **Function Name**  | Parameters  | Parameter Type |
+|--------------------|-------------|----------------|
+| **getStatusById**  | statusId    | number         |
+
+
+### Output
+- **Status**: A specific status given by its ID.
+
+
+
+
+
+
