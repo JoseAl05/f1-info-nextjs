@@ -9,6 +9,7 @@
 
 # Ergast Database ERD and Ergast Database guide
 [Database Guide](http://ergast.com/docs/f1db_user_guide.txt)
+&nbsp;
 ![ERD](http://ergast.com/images/ergast_db.png)
 
 # Functions
@@ -54,11 +55,11 @@
 &nbsp;
 | **Function Name** | Parameters      | Parameter Type |
 |-------------------|-----------------|----------------|
-| **getDrivers**    | driversPerPage  | number         |
-|                   | currentPage     | number         |
-|                   | sortByLetter?   | string or null |
-|                   | driverForename? | string or null |
-|                   | driverSurname?  | string or null |
+| **getDrivers**    | *driversPerPage*  | number         |
+|                   | *currentPage*     | number         |
+|                   | *sortByLetter?*   | string or null |
+|                   | *driverForename?* | string or null |
+|                   | *driverSurname?*  | string or null |
 
 ### Output
 - **Drivers**: Array of Drivers.
@@ -68,7 +69,7 @@
 
 | **Function Name**    | Parameters  | Parameter Type         |
 |----------------------|-------------|------------------------|
-| **getDriverById**    | driverId      | number or number[]   |
+| **getDriverById**    | *driverId*      | number or number[]   |
 
 ### Output
 - **Driver**: Array of Drivers with his results.
@@ -79,8 +80,8 @@
 &nbsp;
 | **Function Name**    | Parameters            | Parameter Type |
 |----------------------|-----------------------|----------------|
-| **getConstructors**  | constructorsPerPage   | number         |
-|                      | currentPage           | number         |
+| **getConstructors**  | *constructorsPerPage*   | number         |
+|                      | *currentPage*           | number         |
 
 ### Output
 - **Teams**: Array of Constructors.
@@ -90,7 +91,7 @@
 
 | **Function Name**        | Parameters        | Parameter Type |
 |--------------------------|-------------------|----------------|
-| **getConstructorById**   | constructorId     | number or number[]|
+| **getConstructorById**   | *constructorId*     | number or number[]|
 
 ### Output
 - **Team**: A specific constructor given by its ID.
@@ -100,8 +101,8 @@
 
 | **Function Name**                                | Parameters                         | Parameter Type       |
 |--------------------------------------------------|------------------------------------|----------------------|
-| **getConstructorResultsByDriverAndConstructorId** | constructorId                      | number[]   |
-|                                                  | driverId                           | number |
+| **getConstructorResultsByDriverAndConstructorId** | *constructorId*                      | number[]   |
+|                                                  | *driverId*                           | number |
 
 ### Output
 - **Team**: The results of a driver with the constructor.
@@ -112,9 +113,9 @@
 &nbsp;
 | **Function Name** | Parameters      | Parameter Type |
 |-------------------|-----------------|----------------|
-| **getRaces**      | racesPerPage    | number         |
-|                   | currentPage     | number         |
-|                   | year            | number         |
+| **getRaces**      | *racesPerPage*    | number         |
+|                   | *currentPage*     | number         |
+|                   | *year*            | number         |
 
 ### Output
 - **Races**: Array of Races.
@@ -124,7 +125,7 @@
 
 | **Function Name** | Parameters  | Parameter Type  |
 |-------------------|-------------|-----------------|
-| **getRaceById**   | raceId      | number          |
+| **getRaceById**   | *raceId*      | number          |
 
 ### Output
 - **Race**:A specific race with constructors standings, drivers standings and the results of the qualifying and race.
@@ -133,9 +134,9 @@
 
 | **Function Name**      | Parameters       | Parameter Type |
 |------------------------|------------------|----------------|
-| **getRacesByCircuit**   | racesPerPage     | number         |
-|                        | currentPage      | number         |
-|                        | circuitId        | number         |
+| **getRacesByCircuit**   | *racesPerPage*     | number         |
+|                        | *currentPage*      | number         |
+|                        | *circuitId*        | number         |
 
 ### Output
 - **RacesPerCircuit**: Array of races held on the given circuit.
@@ -146,7 +147,7 @@
 &nbsp;
 | **Function Name**  | Parameters  | Parameter Type |
 |--------------------|-------------|----------------|
-| **getStatusById**  | statusId    | number         |
+| **getStatusById**  | *statusId*    | number         |
 
 
 ### Output
