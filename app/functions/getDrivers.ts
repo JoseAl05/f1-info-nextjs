@@ -45,10 +45,6 @@ export async function getDrivers(params: IDriverParams) {
       ];
     }
 
-    // if (driverSurname) {
-    //   query.surname = driverSurname;
-    // }
-
     const qDrivers = await prisma.drivers.count({
       where: query,
     });
