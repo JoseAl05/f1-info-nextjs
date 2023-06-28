@@ -1,5 +1,7 @@
 ![Informula](https://nimbus-screenshots.s3.amazonaws.com/s/a1b2163db77f2b9ca141a012ab7a0d71.png)
 
+#### Informula is a informative web site powered by [Ergast API](http://ergast.com/mrd/). Here you can find interesting data of circuits, races, seasons and drivers.
+
 # Tools
 - [NextJS 13](https://nextjs.org/)
 - [TailwindCSS](https://tailwindcss.com/)
@@ -8,9 +10,11 @@
 - [Ergast API](http://ergast.com/mrd/)
 
 # Ergast Database ERD and Ergast Database guide
-[Database Guide](http://ergast.com/docs/f1db_user_guide.txt)
+### [Database Guide](http://ergast.com/docs/f1db_user_guide.txt)
 &nbsp;
 ![ERD](http://ergast.com/images/ergast_db.png)
+
+***
 
 # Functions
 ## Circuits
