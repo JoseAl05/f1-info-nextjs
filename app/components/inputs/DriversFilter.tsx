@@ -227,7 +227,7 @@ const DriversFilter: React.FC<DriversFiltersProps> = ({ driversNationalites }) =
                                     onClick={(value) => setValue('sortByLetter', value)}
                                     selected={letterSelected === letter}
                                     label={letter}
-                                    disabled={params.get('driverForename') !== null || params.get('nationality') !== ''}
+                                    disabled={params.get('driverForename') !== null || params.get('nationality') !== '' || params.get('nationality') !== null}
                                 />
                             )
                         })
