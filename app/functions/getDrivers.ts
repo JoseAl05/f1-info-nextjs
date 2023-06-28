@@ -7,6 +7,7 @@ export interface IDriverParams {
   sortByLetter?: string;
   driverForename?: string | null;
   driverSurname?: string | null;
+  nationality?: string | null;
 }
 
 export interface IDriverByIdParams {
@@ -21,6 +22,7 @@ export async function getDrivers(params: IDriverParams) {
       sortByLetter,
       driverForename,
       driverSurname,
+      nationality
     } = params;
 
     let query:any = {};
@@ -43,6 +45,10 @@ export async function getDrivers(params: IDriverParams) {
           }
         }
       ];
+    }
+
+    if(nationality){
+      query.nationality = nationality;
     }
 
     const qDrivers = await prisma.drivers.count({
@@ -105,6 +111,21 @@ export async function getDriverById(params: IDriverByIdParams) {
       driver: driver,
     };
 
+
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}
+
+export async function getDriversNationalities(){
+  try {
+    const driverNationalities = await prisma.drivers.findMany({
+      select:{
+        nationality:true
+      }
+    })
+
+    return driverNationalities;
 
   } catch (error: any) {
     throw new Error(error.message);
