@@ -4,10 +4,11 @@ interface AlphaberFilterProps {
     onClick: (value: string) => void;
     selected?: boolean;
     label: string;
-    disabled?:boolean;
+    disabled?: boolean;
 }
 
-const AlphabetFilter: React.FC<AlphaberFilterProps> = ({ onClick, selected, label,disabled }) => {
+const AlphabetFilter: React.FC<AlphaberFilterProps> = ({ onClick, selected, label, disabled }) => {
+
     return (
         <>
             {
@@ -33,17 +34,20 @@ const AlphabetFilter: React.FC<AlphaberFilterProps> = ({ onClick, selected, labe
                         </p>
                     </div>
 
-                ):(
+                ) : (
                     <div
                         className='
-                                w-full
-                                rounded-xl
-                                border-2
-                                p-4
-                                cursor-not-allowed
-                                bg-neutral-200
-                                border-neutral-200
-                            '
+                            w-full
+                            text-center
+                            rounded-xl
+                            border-2
+                            p-2
+                            md:p-4
+                            lg:p-4
+                            cursor-not-allowed
+                            bg-neutral-200
+                            border-neutral-200
+                        '
                     >
                         <p className='font-semibold'>
                             {label}

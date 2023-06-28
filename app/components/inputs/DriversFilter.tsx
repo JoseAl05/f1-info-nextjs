@@ -8,8 +8,15 @@ import AlphabetFilter from './AlphabetFilter';
 import Button from '../buttons/Button';
 
 type Inputs = {
-    dataPerPage: number,
+    dataPerPage: {
+        value:number,
+        label:string | null,
+    },
     sortByLetter: string | null,
+    nationality: {
+        value:string,
+        label:string | null
+    },
 };
 
 type SearchInput = {
@@ -19,6 +26,7 @@ type SearchInput = {
 type Query = {
     dataPerPage?: ParsedQuery<string>,
     sortByLetter?: ParsedQuery<string>,
+    nationality?: ParsedQuery<string>,
 }
 
 type EntriesOptions = {
@@ -26,8 +34,19 @@ type EntriesOptions = {
     label: string,
 }
 
+type NationalitiesOptions = {
+    value: string,
+    label: string,
+}
 
-const DriversFilter = () => {
+interface DriversFiltersProps {
+    driversNationalites: {
+        nationality: string | null;
+    }[]
+}
+
+
+const DriversFilter: React.FC<DriversFiltersProps> = ({ driversNationalites }) => {
 
     let currentQuery: Query = {};
     const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'];
@@ -36,6 +55,14 @@ const DriversFilter = () => {
         { value: 48, label: "48 Entries" },
         { value: 60, label: "60 Entries" }
     ]
+    const uniqueNationalites = Array.from(new Set(driversNationalites.map(nationality => nationality.nationality)));
+    const nationalitiesOptions: NationalitiesOptions[] = uniqueNationalites.map(nationality => {
+        return {
+            value: nationality!,
+            label: nationality!
+        }
+    })
+
 
     const router = useRouter();
     const pathname = usePathname();
@@ -43,8 +70,15 @@ const DriversFilter = () => {
 
     const { control, handleSubmit, reset, watch, setValue } = useForm({
         defaultValues: {
-            dataPerPage: 12,
+            dataPerPage: {
+                value:12,
+                label:null
+            },
             sortByLetter: '',
+            nationality: {
+                value:'',
+                label:null
+            }
         }
     });
 
@@ -58,17 +92,11 @@ const DriversFilter = () => {
 
     const onSubmit: SubmitHandler<Inputs> = data => {
 
-        let driversPerPage = 0;
-
-
-        if (typeof data.dataPerPage !== 'number') {
-            driversPerPage = data.dataPerPage['value'];
-
-        } else {
-            driversPerPage = data.dataPerPage
-        }
-
+        const driversPerPage = data.dataPerPage.value;
+        const nationality = data.nationality.value;
         const sortByLetter = data.sortByLetter?.length !== 0 ? data.sortByLetter : null;
+
+
 
         if (driversPerPage) {
             currentQuery.dataPerPage = qs.parse(driversPerPage.toString());
@@ -78,10 +106,17 @@ const DriversFilter = () => {
             currentQuery.sortByLetter = qs.parse(sortByLetter.toString());
         }
 
+        if(nationality){
+            currentQuery.nationality = qs.parse(nationality.toString());
+        }
+
+
+
         const updatedQuery: any = {
             ...currentQuery,
             dataPerPage: driversPerPage,
             sortByLetter: sortByLetter,
+            nationality:nationality,
             page: 0,
         }
 
@@ -127,8 +162,15 @@ const DriversFilter = () => {
 
     const cleanFilters = () => {
         reset({
-            dataPerPage: 12,
+            dataPerPage: {
+                value:12,
+                label:null
+            },
             sortByLetter: '',
+            nationality:{
+                value:'',
+                label:null
+            }
         });
         searchForm.reset({
             driverName: '',
@@ -139,20 +181,42 @@ const DriversFilter = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <h1 className='pb-5 text-sm text-neutral-500 font-semibold tracking-tight leading-none'>Seleccione la cantidad de pilotos que desea ver por página y haga click en aplicar filtros.</h1>
-                <Controller
-                    name="dataPerPage"
-                    control={control}
-                    render={({ field }) =>
-                        <Select
-                            className='max-w-sm'
-                            {...field}
-                            //@ts-ignore
-                            options={entriesOptions}
-                            isDisabled={params.get('driverForename') !== null}
+                <div className='flex justify-around items-center gap-8'>
+                    <div className='flex flex-col items-center'>
+                        <h1 className='pb-5 text-sm text-neutral-500 font-semibold tracking-tight leading-none'>Seleccione la cantidad de pilotos que desea ver por página y haga click en aplicar filtros.</h1>
+                        <Controller
+                            name="dataPerPage"
+                            control={control}
+                            render={({ field }) =>
+                                <Select
+                                    className='max-w-lg w-full'
+                                    placeholder='Entries'
+                                    {...field}
+                                    //@ts-ignore
+                                    options={entriesOptions}
+                                    isDisabled={params.get('driverForename') !== null}
+                                />
+                            }
                         />
-                    }
-                />
+                    </div>
+                    <div className='flex flex-col items-center'>
+                        <h1 className='pb-5 text-sm text-neutral-500 font-semibold tracking-tight leading-none'>Seleccione la nacionalidad de los pilotos que desea buscar y haga click en aplicar filtros.</h1>
+                        <Controller
+                            name="nationality"
+                            control={control}
+                            render={({ field }) =>
+                                <Select
+                                    className='max-w-lg w-full'
+                                    placeholder='Nacionalidad'
+                                    {...field}
+                                    //@ts-ignore
+                                    options={nationalitiesOptions}
+                                    isDisabled={params.get('driverForename') !== null || params.get('sortByLetter') !== null}
+                                />
+                            }
+                        />
+                    </div>
+                </div>
                 <h1 className='pt-10 text-sm text-neutral-500 font-semibold tracking-tight leading-none'>Seleccione una letra y haga click en aplicar filtros.</h1>
                 <div className='grid grid-cols-6 py-10 gap-2 lg:gap-5'>
                     {
@@ -163,7 +227,7 @@ const DriversFilter = () => {
                                     onClick={(value) => setValue('sortByLetter', value)}
                                     selected={letterSelected === letter}
                                     label={letter}
-                                    disabled={params.get('driverForename') !== null}
+                                    disabled={params.get('driverForename') !== null || params.get('nationality') !== ''}
                                 />
                             )
                         })
